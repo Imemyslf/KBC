@@ -1,4 +1,5 @@
-
+# import time
+# t_30 = 30
 money = 0
 ques = [ 
         ["Highest mountain the world?","Mt.Everest","Mt.Fugi","Mt.Kilimanjaro","Mt.Denali",1],
@@ -24,16 +25,21 @@ print("\n WELCOME TO \"KON BANEGA CROREPATTI\" ")
 for i in range(0,len(ques)):
     if (i>= 5 and i<10):
         money = 10000
-    elif (i>=10 and i < 17):
+    elif (i>=10 and i < 15):
         money = 320000
     else:
         money = monpri[-1]
+    
+    
     que = ques[i]
     print(f"Aapka {i+1} Sawal Hai {monpri[i]} Rupay Ke Liye: \n")
     print(que[0])
     print(f"1.{que[1]}\n2.{que[2]}")
     print(f"3.{que[3]}\n4.{que[4]}")
-    ans = int (input("Enter your ans in (1-4): "))
+    
+    # for i in t_30:
+    #     t = time.sleep(30)
+        ans = int (input("Enter your ans in (1-4): "))
     if (ans == que[5]):
         print(f"Aap Jeeth Juke Hai {monpri[i]} Rupay\n ")
         money += monpri[i]
