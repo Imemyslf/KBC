@@ -39,7 +39,7 @@ for i in range(0,len(ques)):
     
     # for i in t_30:
     #     t = time.sleep(30)
-        ans = int (input("Enter your ans in (1-4): "))
+    ans = int (input("Enter your ans in (1-4): "))
     if (ans == que[5]):
         print(f"Aap Jeeth Juke Hai {monpri[i]} Rupay\n ")
         money += monpri[i]
