@@ -24,7 +24,9 @@ monpri = [1000,2000,3000,5000,10000,20000,40000,80000,160000,320000,640000,12500
 print("\n WELCOME TO \"KON BANEGA CROREPATTI\" ")
 for i in range(0,len(ques)):
     
-    if (i>= 5 and i<10):
+    if (i>= 0 and i<5):
+        money = 0
+    elif (i>= 5 and i<10) :
         money = 10000
     elif (i>=10 and i < 15):
         money = 320000
