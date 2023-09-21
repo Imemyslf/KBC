@@ -3,7 +3,7 @@
 money = 0
 ques = [ 
         ["Highest mountain the world?","Mt.Everest","Mt.Fugi","Mt.Kilimanjaro","Mt.Denali",1],
-        ["Fastets animal in the world?","Tiger","Girrafe","Chetah","Lion",3],
+        ["Fastets animal in the world?","Tiger","hippopotamus","Cheetahs","Lion",3],
         ["Longest river in the world?","Amazon","Nile","Godavri","Kaveri",2],
         ["Heighest Architecture Building in the world?","Sydney Opera House","Eiffel Tower","Leaning Tower of Pis","Burj Khalifa",4],
         ["Tallest human made Statue in the world?","Spring Temple Buddha"," Laykyun Sekkya","Statue of Unity","Statue of Belief",3],
