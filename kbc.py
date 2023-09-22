@@ -1,5 +1,5 @@
-# import time
-# t_30 = 30
+import time
+
 money = 0
 ques = [ 
         ["Highest mountain the world?","Mt.Everest","Mt.Fugi","Mt.Kilimanjaro","Mt.Denali",1],
@@ -44,9 +44,11 @@ for i in range(0,len(ques)):
     #     t = time.sleep(30)
     ans = int (input("Enter your ans in (1-4): "))
     if (ans == que[5]):
+        time.sleep(3)
         print(f"\nAap Jeeth Juke Hai {monpri[i]} Rupay\n ")
         money = monpri[i]
     else:
+        time.sleep(3)
         print("\nGalat Jawaab Aapka khel Yahi Samapt Hota Hai!!")
         break
 
