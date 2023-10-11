@@ -1,19 +1,19 @@
 Money_Prices = [
-    '1,000',
-    '2,000',
-    '3,000',
-    '5,000',
-    '10,000',
-    '20,000',
-    '40,000',
-    '80,000',
-    '1,60,000',
-    '3,20,000',
-    '6,40,000',
-    '12,50,000',
-    '25,00,000',
-    '50,00,000',
-    '7 Crore'
+    1000,
+    2000,
+    3000,
+    5000,
+    10000,
+    20000,
+    40000,
+    80000,
+    160000,
+    320000,
+    640000,
+    1250000,
+    2500000,
+    5000000,
+    70000000
 ]
 
 Questions = [
@@ -99,7 +99,7 @@ Questions = [
         },
         {
             'question': 'What is the currency of India?',
-            'options': ['Indian Rupee (INR)', 'Yen', 'Euro', 'Dollar'],
+            'options': ['Indian Rupee', 'Yen', 'Euro', 'Dollar'],
             'answer': 'Indian Rupee',
             'description': 'The currency used in India is the Indian Rupee (INR).'
         },
