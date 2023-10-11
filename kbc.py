@@ -8,6 +8,9 @@ money = 0
 # Display a welcome message
 print("WELCOME TO \"KON BANEGA CROREPATTI\"\n")
 
+# Seed the random number generator with the current time to make shuffling random
+random.seed(time.time())
+
 # Loop through the questions
 for i in range(len(Questions)):
     # Randomly select a question, its options, correct answer, and description
@@ -24,7 +27,7 @@ for i in range(len(Questions)):
 
     # Prompt the user for their answer
     Answer = int(input('Enter your answer in (1-4) : '))
-    time.sleep(3)
+    time.sleep(3) # for Suspense
 
     # Check if the user's answer matches the correct answer
     if Correct_Answer in Options[Answer-1]:
