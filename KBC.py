@@ -14,10 +14,11 @@ random.seed(time.time())
 
 # Loop through the questions
 for i in range(len(Questions)):
+    #Prompt the user to contiue playing.
     if (i == 5 or i == 10 or i == 15):
         print("\nKya app ghel jari rakhenge")
         choice = int(input(f"{Colors.yellow} 1.Jari rakhenge \n 2.Nahi \n{Colors.reset}"))
-        if (choice == 2):
+        if (choice == 2): # Game Over!!
                 break
         
     # Randomly select a question, its options, correct answer, and description
