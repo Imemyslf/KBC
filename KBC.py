@@ -7,13 +7,19 @@ from KBC_Data import Questions, Money_Prices
 money = 0
 
 # Display a welcome message
-print(f'{Colors.green}WELCOME TO \'KON BANEGA CROREPATTI\'\n{Colors.reset}')
+print(f'\n\n{Colors.blue}WELCOME TO \'KON BANEGA CROREPATTI\'\n{Colors.reset}')
 
 # Seed the random number generator with the current time to make shuffling random
 random.seed(time.time())
 
 # Loop through the questions
 for i in range(len(Questions)):
+    if (i == 5 or i == 10 or i == 15):
+        print("\nKya app ghel jari rakhenge")
+        choice = int(input(f"{Colors.yellow} 1.Jari rakhenge \n 2.Nahi \n{Colors.reset}"))
+        if (choice == 2):
+                break
+        
     # Randomly select a question, its options, correct answer, and description
     Question, Options, Correct_Answer, Description = Questions[i][random.randint(0, 4)].values()
 
@@ -32,12 +38,13 @@ for i in range(len(Questions)):
 
     # Check if the user's answer matches the correct answer
     if Correct_Answer in Options[Answer-1]:
-        print(f'\nAap Jeeth Juke Hai {Money_Prices[i]} Rupay')
+        print(f'\n{Colors.green}Aap Jeeth Juke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')
         money = Money_Prices[i]
     else:
-        print('Galat Jawaab Aapka khel Yahi Samapt Hota Hai!!')
+        print(f'\n{Colors.red}Galat Jawaab Aapka khel Yahi Samapt Hota Hai!!\n{Colors.reset}')
         break
 
 # Display the total earnings and a thank you message
-print(f'Aap apne saath {money} Rupay Lekar Ja Rahe Hai!!')
-print('DHANYAWAAD HUMARA KHEL KHELNE KE LIYE')
+print(f'\nAap apne saath {Colors.blue}{money}{Colors.reset} Rupay Lekar Ja Rahe Hai!!')
+print(f'\n{Colors.pink}DHANYAWAAD HUMARA KHEL KHELNE KE LIYE')
+print("\n\n")
