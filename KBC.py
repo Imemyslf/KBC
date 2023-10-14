@@ -43,7 +43,7 @@ for i in range(len(Questions)):
     # Prompt the user for Life line Options.
     if (mokka_50 == 1): # if user haven't used the life_life
         print("\n Do  you want to you the life-line?")
-        life_line = int(input("1. 50-50 0.No, I am fine.\n Enter your Choice:-\t"))
+        life_line = int(input("1. 50-50 \n0.No, I am fine.\n Enter your Choice:-\t"))
         if ( life_line == 1 ):
             ranopt(Question,Options,Correct_Answer,i);
             mokka_50 = 0; # user has used the life_line.
