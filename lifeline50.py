@@ -1,6 +1,6 @@
 import random
 import os
-from KBC_Data import Questions,Money_Prices
+from KBC_Data import Money_Prices
 
 #Randome Options Functions for deleting any two randome options but keeping the Correct_Answer in it.
 def ranopt(Question,Options,Correct_Answer,i):
@@ -20,11 +20,10 @@ def ranopt(Question,Options,Correct_Answer,i):
     #Adding the answer Back into the Options List.
     Options.insert(0,answer)
 
-    os.system('cls') # Cleaing the terminal screen
+    os.system('cls') # Clears the terminal screen
     
     # Re-appearing the question with 50-50 life_life.
     print(f'Aapka {i+1} Sawal Hai {Money_Prices[i]} Rupay Ke Liye:- \n')
     print(Question)
     for j in range(len(Options)):
         print(f'{j+1}) {Options[j]}')
-
