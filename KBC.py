@@ -1,11 +1,12 @@
 import time
 import random
 import Colors
+from lifeline50 import ranopt
 from KBC_Data import Questions, Money_Prices
 
 # Initialize a variable to keep track of the player's earnings
 money = 0
-
+mokka_50 = 1
 # Display a welcome message
 print(f'\n\n{Colors.blue}WELCOME TO \'KON BANEGA CROREPATTI\'\n{Colors.reset}')
 
@@ -27,11 +28,21 @@ for i in range(len(Questions)):
     # Shuffle the answer options to present them in a random order
     random.shuffle(Options)
 
+    
     # Display the question and available options
     print(f'Aapka {i+1} Sawal Hai {Money_Prices[i]} Rupay Ke Liye:- \n')
     print(Question)
     for j in range(len(Options)):
         print(f'{j+1}) {Options[j]}')
+
+    # if (mokka_50 == 1):
+    #     print("\n Do  you want to you the life-line?")
+    #     life_line = int(input("1. 50-50\n Enter your Choice:-\t"))
+    #     if ( life_line == 1 ):
+    #         ranopt(Question,Options,Correct_Answer,i);
+    #         mokka_50 = 0;
+    # else:
+    #     print("")
 
     # Prompt the user for their answer
     Answer = int(input('Enter your answer in (1-4) : '))
@@ -47,5 +58,5 @@ for i in range(len(Questions)):
 
 # Display the total earnings and a thank you message
 print(f'\nAap apne saath {Colors.blue}{money}{Colors.reset} Rupay Lekar Ja Rahe Hai!!')
-print(f'\n{Colors.pink}DHANYAWAAD HUMARA KHEL KHELNE KE LIYE')
+print(f'\n{Colors.pink}DHANYAWAAD HUMARA KHEL KHELNE KE LIYE{Colors.reset}')
 print("\n\n")
