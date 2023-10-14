@@ -2,6 +2,7 @@ import random
 import os
 from KBC_Data import Money_Prices
 
+
 #Randome Options Functions for deleting any two randome options but keeping the Correct_Answer in it.
 def ranopt(Question,Options,Correct_Answer,i):
     #Passing the Correct_Answer into the variable answer

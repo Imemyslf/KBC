@@ -3,6 +3,7 @@ import os
 import random
 import Colors
 from lifeline50 import ranopt
+from iandr import intro
 from KBC_Data import Questions, Money_Prices
 
 # Initialize a variable to keep track of the player's earnings
@@ -14,6 +15,7 @@ leave = 1
 os.system('cls') # Clears the terminal screen
 # Display a welcome message
 print(f'\n\n{Colors.blue}WELCOME TO \'KON BANEGA CROREPATTI\'\n{Colors.reset}')
+intro()
 
 # Seed the random number generator with the current time to make shuffling random
 random.seed(time.time())
@@ -65,12 +67,12 @@ for i in range(len(Questions)):
         
 
     # Prompt the user for their answer
-    Answer = int(input(' Enter your answer in (1-4) : '))
+    Answer = int(input('\n Enter your answer in (1-4) : '))
     time.sleep(3) # for Suspense
 
     # Check if the user's answer matches the correct answer
     if Correct_Answer in Options[Answer-1]:
-        print(f'\n{Colors.green}Aap Jeeth Juke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')
+        print(f'\n  {Colors.green}Aap Jeeth Juke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')
         money = Money_Prices[i]
         time.sleep(3)# Timer to display that answer is correct.
         os.system('cls')# Clears the terminal screen
