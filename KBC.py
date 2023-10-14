@@ -35,14 +35,14 @@ for i in range(len(Questions)):
     for j in range(len(Options)):
         print(f'{j+1}) {Options[j]}')
 
-    # if (mokka_50 == 1):
-    #     print("\n Do  you want to you the life-line?")
-    #     life_line = int(input("1. 50-50\n Enter your Choice:-\t"))
-    #     if ( life_line == 1 ):
-    #         ranopt(Question,Options,Correct_Answer,i);
-    #         mokka_50 = 0;
-    # else:
-    #     print("")
+    if (mokka_50 == 1):
+        print("\n Do  you want to you the life-line?")
+        life_line = int(input("1. 50-50\n Enter your Choice:-\t"))
+        if ( life_line == 1 ):
+            ranopt(Question,Options,Correct_Answer,i);
+            mokka_50 = 0;
+    else:
+        print("")
 
     # Prompt the user for their answer
     Answer = int(input('Enter your answer in (1-4) : '))
