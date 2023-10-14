@@ -7,9 +7,10 @@ from KBC_Data import Questions, Money_Prices
 
 # Initialize a variable to keep track of the player's earnings
 money = 0
+# Initialize a variable to keep track of the player's 50-50 life_line.
 mokka_50 = 1
 
-os.system('cls') 
+os.system('cls') # Clears the terminal screen
 # Display a welcome message
 print(f'\n\n{Colors.blue}WELCOME TO \'KON BANEGA CROREPATTI\'\n{Colors.reset}')
 
@@ -39,12 +40,13 @@ for i in range(len(Questions)):
     for j in range(len(Options)):
         print(f'{j+1}) {Options[j]}')
 
-    if (mokka_50 == 1):
+    # Prompt the user for Life line Options.
+    if (mokka_50 == 1): # if user haven't used the life_life
         print("\n Do  you want to you the life-line?")
         life_line = int(input("1. 50-50\n Enter your Choice:-\t"))
         if ( life_line == 1 ):
             ranopt(Question,Options,Correct_Answer,i);
-            mokka_50 = 0; 
+            mokka_50 = 0; # user has used the life_line.
     else:
         print("")
 
@@ -56,8 +58,8 @@ for i in range(len(Questions)):
     if Correct_Answer in Options[Answer-1]:
         print(f'\n{Colors.green}Aap Jeeth Juke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')
         money = Money_Prices[i]
-        time.sleep(3)
-        os.system('cls')
+        time.sleep(3)# Timer to display that answer is correct.
+        os.system('cls')# Clears the terminal screen
     else:
         print(f'\n{Colors.red}Galat Jawaab Aapka khel Yahi Samapt Hota Hai!!\n{Colors.reset}')
         break
