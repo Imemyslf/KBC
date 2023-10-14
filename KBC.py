@@ -46,7 +46,11 @@ for i in range(len(Questions)):
     # Prompt the user for Life line Options.
     if (mokka_50 == 1 or leave == 1): # if user haven't used the life_life
         print("\n Do  you want to use the life-line or You want to quit the game??")
-        life_line = int(input(" 1. 50-50 \n 2. No, I am fine.\n 0. Quit.\n Enter your Choice:-\t"))
+        if (mokka_50 == 1):
+            print(" 1. 50-50 \n 2. No, I am fine.\n 0. Quit.")
+        else:
+            print(" 1. No, I am fine\n 0. Quit.")
+        life_line = int(input("\n Enter your Choice:-\t"))
         if ( life_line == 1 ):
             ranopt(Question,Options,Correct_Answer,i);
             mokka_50 = 0; # user has used the life_line.
