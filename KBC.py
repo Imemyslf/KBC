@@ -2,7 +2,7 @@ import time
 import os
 import random
 import Colors
-from lifeline50 import ranopt
+from lifeline import ranopt,poll
 from iandr import intro
 from KBC_Data import Questions, Money_Prices
 
@@ -10,9 +10,11 @@ from KBC_Data import Questions, Money_Prices
 money = 0
 # Initialize a variable to keep track of the player's 50-50 life_line.
 mokka_50 = 1
+mokka_bar = 1
 leave = 1
 
-os.system('cls') # Clears the terminal screen
+
+os.system('cls') # Clears the terminal screen 
 # Display a welcome message
 print(f'\n\n{Colors.blue}WELCOME TO \'KON BANEGA CROREPATTI\'\n{Colors.reset}')
 intro()
@@ -23,9 +25,19 @@ random.seed(time.time())
 # Loop through the questions
 for i in range(len(Questions)):
     
+    if (i >= 0 and i < 5):
+        money = 0
+    elif (i > 5 and i < 10 ):
+        money =  10000
+    elif(i > 10 and i < 15):
+        money =  320000
+    else:
+        money = Money_Prices[i]
+    
     #Prompt the user to contiue playing.
     if (i == 5 or i == 10 or i == 15):
         print("\nKya app ghel jari rakhenge")
+        print(f"Dhanrashi apke pass hai {Money_Prices[i]}")
         print(f"{Colors.yellow} 1.Jari rakhenge \n 2.Nahi \n{Colors.reset}")
         choice = int(input("Enter Your Choice:-\t"))
         os.system('cls')
@@ -46,16 +58,38 @@ for i in range(len(Questions)):
         print(f'{j+1}) {Options[j]}')
 
     # Prompt the user for Life line Options.
-    if (mokka_50 == 1 or leave == 1): # if user haven't used the life_life
+    if (mokka_50 == 1 or leave == 1 or mokka_bar == 1): # if user haven't used the life_life
         print("\n Do  you want to use the life-line or You want to quit the game??")
-        if (mokka_50 == 1):
-            print(" 1. 50-50 \n 2. No, I am fine.\n 0. Quit.")
+        if (mokka_50 == 1 and mokka_bar == 1): # if user hasn't used the life
+            print(" 1. 50-50 \n 2. Poll \n 3. No, I am fine.\n 0. Quit.")
+        elif (mokka_50 == 0): # if user hasn
+            print(f" {Colors.red}1. 50-50 {Colors.reset}\n 2. No, I am fine.\n 0. Quit.")
+        elif (mokka_bar == 0):
+            print(f" 1. 50-50 \n {Colors.red}2. Poll{Colors.reset} \n 3. No, I am fine.\n 0. Quit.")
         else:
-            print(" 1. No, I am fine\n 0. Quit.")
+            print(f" {Colors.red}1. 50-50{Colors.reset} \n {Colors.red}2. Poll{Colors.reset} \n 3. No, I am fine.\n 0. Quit.")
+
+
+
         life_line = int(input("\n Enter your Choice:-\t"))
-        if ( life_line == 1 ):
-            ranopt(Question,Options,Correct_Answer,i);
-            mokka_50 = 0; # user has used the life_line.
+
+
+        if ( life_line == 1):
+            if(mokka_50 == 1):
+                ranopt(Question,Options,Correct_Answer,i);
+                mokka_50 = 0  # user has used the life_line.                
+            else:
+                print("Aap yeh life-line estmal kar juke hai!!")
+        elif(life_line == 2):
+            if (mokka_bar == 1):
+                poll(Options,Correct_Answer,i)
+                mokka_bar = 0  # user has used the life_line.
+                print(f'Aapka {i+1} Sawal Hai {Money_Prices[i]} Rupay Ke Liye:- \n')
+                print(Question)
+                for j in range(len(Options)):
+                    print(f'{j+1}) {Options[j]}')
+            else:
+                print("Aap yeh life-line estmal kar juke hai!!")
         elif (life_line == 0):
             if (i == 0):
                 money = 0
