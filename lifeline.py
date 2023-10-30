@@ -13,6 +13,8 @@ def intro():
     response = input(" Press enter to continue\t")
     
     os.system('cls')
+    
+    
 
 #Life_line_1
 def ranopt(Question,Options,Correct_Answer,i):
@@ -40,7 +42,7 @@ def ranopt(Question,Options,Correct_Answer,i):
     for j in range(len(Options)):
         print(f'{j+1}) {Options[j]}')
 
-# Life_line_2
+# Life_line_2 
 def poll(Options,Correct_Answer):
     os.system('cls')
     choice = []
@@ -135,7 +137,7 @@ def poll(Options,Correct_Answer):
             if (i == 0 ):
                 print("|",end="")
             elif (i >= 0 and i < (cho -1)):
-                print(" ",end="")
+                print("▉",end="")
         
         for i in range(cho):
             if (i == 9):    
