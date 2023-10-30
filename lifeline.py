@@ -141,7 +141,7 @@ def poll(Options,Correct_Answer):
         
         for i in range(cho):
             if (i == 9):    
-                print(f" | {cho} %")
+                print(f"▉| {cho} %")
 
         print(f" {space * (large + 1)}",end="")
         for i in range(cho):
