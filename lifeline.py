@@ -1,6 +1,7 @@
 import random
+import string
 import os
-from KBC_Data import Money_Prices
+from KBC_Data import Questions,Money_Prices
 
 
 #Randome Options Functions for deleting any two randome options but keeping the Correct_Answer in it.
@@ -29,22 +30,47 @@ def ranopt(Question,Options,Correct_Answer,i):
     for j in range(len(Options)):
         print(f'{j+1}) {Options[j]}')
 
-def poll(Options,Correct_Answer,i):
+# 
+def poll(Options,Correct_Answer):
     os.system('cls')
     choice = []
-    number = 0
-    for i in range (4):
-        number = random.randint(40,80)
-        choice.append(number)
     space = " "
-    
-    # for i in range(len(Questions)):
-    #         Question, Options, Correct_Answer, Description = Questions[i][random.randint(0, 4)].values()
-
-    answer = Correct_Answer
-    # Options.remove(answer)
     large = 0
 
+    # for i in range(len(Questions)):
+    #     Question, Options, Correct_Answer, Description = Questions[i][random.randint(0, 4)].values()
+
+    answer = Correct_Answer
+    choice_1_answer = random.randint(35,37)
+    
+    choice_0 = random.randint(35,38)
+    
+    Options.remove(answer)
+    
+    random_option = random.sample(range(len(Options)), 1)
+    i_rand = random_option[0]
+    
+    for i in range(len(Questions)):
+        if (i_rand == i):
+            i_rand_remove = Options[i]
+            
+    Options.remove(i_rand_remove)
+    Options.insert(0,i_rand_remove)
+    Options.insert(1,answer)
+    
+    choice.insert(0,choice_0)
+    choice.insert(1,choice_1_answer)
+    nos = choice[0]  + choice[1]
+    # print(f"Choice 0,1:- {nos}")
+    
+    total = 100 - (choice[0] + choice[1])
+    
+    choice_3 = random.randint(10,15)
+    choice.insert(2,choice_3)
+    
+    final_value = 100 - (choice_1_answer + choice_0 + choice_3)
+    choice.insert(3,final_value)
+    
     for i in range(len(Options)):
         op = Options[i]
         op_name = len(op)
@@ -60,12 +86,12 @@ def poll(Options,Correct_Answer,i):
         n1 = (num - len(opt))
         Options1.append(n1)
 
-    # print(f"{Question}\n")
     for i in range (len(choice)):
         cho = choice[i]
         opt = Options[i]
         opt1 = Options1[i]
-        print(f"{space * (num + 1)}",end="")
+        
+        print(f" {space * (num + 1)}",end="")
         for i in range (cho):
             if (i < (cho -1)):
                 print("-",end="")
@@ -73,30 +99,23 @@ def poll(Options,Correct_Answer,i):
                 print("")
         str1 = opt + (space * opt1) 
         print(f"{str1} ",end="")
+        
         for i in range(cho):
             if (i == 0 ):
                 print("|",end="")
-            elif (i > 0 and i < (cho -1)):
+            elif (i >= 0 and i < (cho -1)):
                 print(" ",end="")
+        
         for i in range(cho):
             if (i == 9):    
-                print(f"| {cho} %")
-        # print("\n")
-        print(f"{space * (num + 1)}",end="")
+                print(f" | {cho} %")
+
+        print(f" {space * (num + 1)}",end="")
         for i in range(cho):
             if (i < (cho -1)):
                 print("-",end="")
         print("\n")
-        
-        # Options.insert(0,answer)
-        # print(Options)
-        
-    # Options.insert(0,answer)
 
-        # Clears the terminal screen
-        
-        # Re-appearing the question with 50-50 life_life.
-    # print(f'Aapka {i+1} Sawal Hai {Money_Prices[i]} Rupay Ke Liye:- \n')
-    # print(Question)
-    # for j in range(len(Options)):
-    #     print(f'{j+1}) {Options[j]}')
+if __name__ == "__main__":
+    ranopt()
+    poll()

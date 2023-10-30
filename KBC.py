@@ -69,8 +69,6 @@ for i in range(len(Questions)):
         else:
             print(f" {Colors.red}1. 50-50{Colors.reset} \n {Colors.red}2. Poll{Colors.reset} \n 3. No, I am fine.\n 0. Quit.")
 
-
-
         life_line = int(input("\n Enter your Choice:-\t"))
 
 
@@ -82,7 +80,7 @@ for i in range(len(Questions)):
                 print("Aap yeh life-line estmal kar juke hai!!")
         elif(life_line == 2):
             if (mokka_bar == 1):
-                poll(Options,Correct_Answer,i)
+                poll(Options,Correct_Answer)
                 mokka_bar = 0  # user has used the life_line.
                 print(f'Aapka {i+1} Sawal Hai {Money_Prices[i]} Rupay Ke Liye:- \n')
                 print(Question)
