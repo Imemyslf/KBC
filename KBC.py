@@ -57,7 +57,7 @@ for i in range(len(Questions)):
         print(f'{j+1}) {Options[j]}')
 
     # Prompt the user for Life line Options.
-    if (mokka_50 == 1 or leave == 1 or mokka_bar == 1): # if user haven't used the life_life
+    if (mokka_50 == 1 or mokka_bar == 1): # if user haven't used the life_life
         print("\n Do  you want to use the life-line or You want to quit the game??")
         if (mokka_50 == 1 and mokka_bar == 1): # if user hasn't used the life
             print(" 1. 50-50 \n 2. Poll \n 3. No, I am fine.\n 0. Quit.")
@@ -67,6 +67,7 @@ for i in range(len(Questions)):
             print(f" 1. 50-50 \n {Colors.red}2. Poll{Colors.reset} \n 3. No, I am fine.\n 0. Quit.")
         else:
             print(f" {Colors.red}1. 50-50{Colors.reset} \n {Colors.red}2. Poll{Colors.reset} \n 3. No, I am fine.\n 0. Quit.")
+            
 
         life_line = int(input("\n Enter your Choice:-\t"))
 

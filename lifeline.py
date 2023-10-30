@@ -117,37 +117,31 @@ def poll(Options,Correct_Answer):
         # Example: remaining_spaces(6) = KonBanega (length of the string is 9) - KBC (length of the string is 3)
         remaining_spaces= (large - len(opt))
         Options1.append(remaining_spaces)
-
+    
     # Displaying Poll
     for i in range (len(choice)):
         cho = choice[i]
         opt = Options[i]
         opt1 = Options1[i]
         
-        print(f" {space * (large + 1)}",end="")
-        for i in range (cho):
-            if (i < (cho -1)):
-                print("-",end="")
-            else:
-                print("")
         str1 = opt + (space * opt1) 
         print(f"{str1} ",end="")
         
         for i in range(cho):
             if (i == 0 ):
-                print("|",end="")
+                print("",end="")
             elif (i >= 0 and i < (cho -1)):
-                print("▉",end="")
+                print(f"{Colors.white_highlight} {Colors.reset}",end="")
         
         for i in range(cho):
             if (i == 9):    
-                print(f"▉| {cho} %")
+                print(f" {cho} %")
 
         print(f" {space * (large + 1)}",end="")
-        for i in range(cho):
-            if (i < (cho -1)):
-                print("-",end="")
+        
         print("\n")
+    
+    
 
 if __name__ == "__main__":
     intro()
