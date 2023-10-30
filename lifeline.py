@@ -162,10 +162,17 @@ def poll(Options,Correct_Answer):
     else:
         fa = [0]
         return fa
-    
+
+def mon(i):
+    print(" Current Status of Player:- ",end= " ")
+    if (i == 0):
+        print(f"\n Levels Cleared = {i} \t Prize Money = {Colors.green}0{Colors.reset}")
+    else:
+        print(f"\n Levels Cleared = {i} \t Prize Money = {Colors.green}{Money_Prices[i -1]}{Colors.reset}")
     
 
 if __name__ == "__main__":
     intro()
     ranopt()
     poll()
+    mon(5)

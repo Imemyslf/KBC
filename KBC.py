@@ -2,7 +2,7 @@ import time
 import os
 import random
 import Colors
-from lifeline import ranopt,poll,intro
+from lifeline import ranopt,poll,intro,mon
 from KBC_Data import Questions, Money_Prices
 
 # Initialize a variable money to keep track of the player's earnings
@@ -13,6 +13,7 @@ mokka_50 = 1
 mokka_poll = 1
 # Initialize a variable leave to keep track of the player if they want to quit the game.
 leave = 1
+space = " "
 
 
 os.system('cls') # Clears the terminal screen 
@@ -59,16 +60,17 @@ for i in range(len(Questions)):
         print(f'{j+1}) {Options[j]}')
 
     # Prompt the user for Life line Options.
-    if (mokka_50 == 1 or mokka_poll == 1): # if user haven't used the life_life
+    if (leave == 1): # if user haven't used the life_life
         print("\n Do  you want to use the life-line or You want to quit the game??")
         if (mokka_50 == 1 and mokka_poll == 1): # if user hasn't used the life
-            print(" 1. 50-50 \n 2. Poll \n 3. No, I am fine.\n 0. Quit.")
-        elif (mokka_50 == 0): # if user hasn
-            print(f" {Colors.red}1. 50-50 {Colors.reset}\n 2. No, I am fine.\n 0. Quit.")
-        elif (mokka_poll == 0):
-            print(f" 1. 50-50 \n {Colors.red}2. Poll{Colors.reset} \n 3. No, I am fine.\n 0. Quit.")
-        else:
-            print(f" {Colors.red}1. 50-50{Colors.reset} \n {Colors.red}2. Poll{Colors.reset} \n 3. No, I am fine.\n 0. Quit.")
+            print(" 1. 50-50 \n 2. Poll \n 3. No, I am fine.\n 4. Prize Money\n 0. Quit.")
+        elif (mokka_50 == 0 and mokka_poll == 1): # if user hasn
+            print(f" {Colors.red}1. 50-50 {Colors.reset}\n 2.Poll \n 3. No, I am fine.\n 4. Prize Money\n 0. Quit.")
+        elif (mokka_poll == 0 and mokka_50 == 1):
+            print(f" 1. 50-50 \n {Colors.red}2. Poll{Colors.reset} \n 3. No, I am fine.\n 4. Prize Money\n 0. Quit.")
+        elif (mokka_poll == 0 and mokka_50 == 0):
+            print(f" {Colors.red}1. 50-50{Colors.reset} \n {Colors.red}2. Poll{Colors.reset} \n 3. No, I am fine.\n 4. Prize Money\n 0. Quit.")
+        
             
 
     life_line = int(input("\n Enter your Choice:-\t"))
@@ -86,7 +88,7 @@ for i in range(len(Questions)):
             #     ans = 1
             # else:
             #     ans = 0
-            mokka_poll = 0  # user has used the life_line.
+            # mokka_poll = 0  # user has used the life_line.
             print(f'\nAapka {i+1} Sawal Tha {Money_Prices[i]} Rupay Ke Liye:- \n')
             print(Question)
             for j in range(len(Options)):
@@ -101,26 +103,30 @@ for i in range(len(Questions)):
         else:
             money = Money_Prices[i-1]
             break
+    elif (life_line == 4):
+        mon(i)
+        pass
         
-    # Prompt the user for their answer
-    if ((life_line == 2) and poll_answer[0] == 0) :
-        Answer = int(input('\n Enter your answer in (1-4) : '))
-        print(f"\n Apka Jawab hai:- {Options[Answer - 1]}")
-        time.sleep(3) # for Suspense
-        
-    else:
-        if (life_line == 2 ):
-            Answer =  poll_answer[1] + 1
-            print(f"\n Apka Jawab hai:- {poll_answer[2]}")
+    if (life_line == 2 and mokka_poll == 1):
+        if (poll_answer[0] == 0 and mokka_poll == 1):
+            Answer = int(input('\n Enter your answer in (1-4) : '))
+            print(f"\n Apka Jawab hai:- {Options[Answer - 1]}")
+            mokka_poll = 0
             time.sleep(3) # for Suspense
         else:
-            Answer = int(input('\n Enter your answer in (1-4) : '))
-            time.sleep(3) # for Suspense
+            if (mokka_poll == 1):
+                Answer =  poll_answer[1] + 1
+                print(f"\n Apka Jawab hai:- {poll_answer[2]}")
+                mokka_poll = 0
+                time.sleep(3) # for Suspense
+    else:            
             
-
+        Answer = int(input('\n Enter your answer in (1-4) : '))
+        time.sleep(3) # for Suspense
+        
     # Check if the user's answer matches the correct answer
     if Correct_Answer in Options[Answer-1]:
-        print(f'\n  {Colors.green}Aap Jeeth Juke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')
+        print(f'\n {Colors.green}Aap Jeeth Juke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')
         money = Money_Prices[i]
         time.sleep(3)# Timer to display that answer is correct.
         os.system('cls')# Clears the terminal screen
@@ -129,6 +135,6 @@ for i in range(len(Questions)):
         break
 
 # Display the total earnings and a thank you message
-print(f'\nAap apne saath {Colors.blue}{money}{Colors.reset} Rupay Lekar Ja Rahe Hai!!')
-print(f'\n{Colors.pink}DHANYAWAAD HUMARA KHEL KHELNE KE LIYE{Colors.reset}')
+print(f'\n Aap apne saath {Colors.blue}{money}{Colors.reset} Rupay Lekar Ja Rahe Hai!!')
+print(f'\n {Colors.pink}DHANYAWAAD HUMARA KHEL KHELNE KE LIYE{Colors.reset}')
 print("\n\n")
