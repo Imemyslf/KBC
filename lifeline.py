@@ -3,14 +3,20 @@ import Colors
 import os
 from KBC_Data import Questions,Money_Prices
 
+space = " "
 # Introduction and Rules
 def intro():
     print(f"\n{Colors.cyan} Rules:-{Colors.reset}")
     print(f"\n 1. There are total{Colors.blue} 15 {Colors.reset} question in Kon Banega Crorepati")
-    print(f"\n 2. Money price(aka Points) are from {Colors.green}1000 - 7cr{Colors.reset}")
-    print("\n 3. You will have Life Line\n a. 50-50\n b. Poll")
+    print(f"\n 2. Price Money(aka Points System) are from {Colors.green}1000 - 7000000{Colors.reset}")
+    print(f"\n 3. You will have Life Line\n {space * 3}a. 50-50\n {space * 3}b. Poll")
     print(f"\n 4. You can leave the game whenever you want{Colors.red} *Just Press 0 when the option pop's up to you!! *{Colors.reset}")
-    response = input(" Press enter to continue\t")
+    print("\n 5. Money Price(aka Points System) rule")
+    print(f"\n   a. If you have correctly answered Questions till 5 then your base money will be '10000' \n {space * 5}Else your base money will be '0' if you get any one Question wrong between 1 to 5. ")
+    print(f"\n   b. If you have correctly answered Questions till 10 then your base money will be '320000' \n {space * 5}Else your base money will be '10000' if you get any one Question wrong between 6 to 10. ")
+    print(f"\n   c. If you have correctly answered Questions till 14 then your base money will be '5000000' \n {space * 5}Else your base money will be '320000' if you get any one Question wrong between 11 to 14. ")
+    print(f"\n   d. The FInal Question will have '7000000' Price Money. It's Totally On The Player If They Want To Attempt The Final Round Or Not \n {space * 5}Note:- If the Answer Given Is Wrong Then The Price Money Will Drop To '320000'")
+    response = input(f"\n{space * 3}Press enter to continue{space * 2}")
     
     os.system('cls')
     
@@ -42,7 +48,7 @@ def ranopt(Question,Options,Correct_Answer,i):
     for j in range(len(Options)):
         print(f'{j+1}) {Options[j]}')
 
-# Life_line_2 
+# Life_line_2  
 def poll(Options,Correct_Answer):
     os.system('cls')
     choice = []
@@ -56,10 +62,10 @@ def poll(Options,Correct_Answer):
     answer = Correct_Answer
     
     #Choosing Percentage for the Correct Answer
-    choice_1_answer = random.randint(35,37)
+    choice_1_answer = random.randint(33,38)
     
     #Choosing Percentage for the random options
-    choice_0 = random.randint(35,38)
+    choice_0 = random.randint(20,35)
     
     #removal of the correct answer from the Options List
     Options.remove(answer)
@@ -87,7 +93,7 @@ def poll(Options,Correct_Answer):
     choice.insert(1,choice_1_answer)
     
     # Genrating a random number for third option in the choice list 
-    choice_3 = random.randint(10,15)
+    choice_3 = random.randint(10,20)
     #Appending the percentage generated for the third option at index 2
     choice.insert(2,choice_3)
     
@@ -140,6 +146,22 @@ def poll(Options,Correct_Answer):
         print(f" {space * (large + 1)}",end="")
         
         print("\n")
+    
+    for i in range (len(choice)):
+        if (choice[i] > large):
+            large = choice[i]
+            inti  = i
+    
+    final_answer = Options[inti]
+    print(f"\n Audience vote:- {final_answer}")
+    poll_answer= input(f"\n Do you want to continue with the poll?{space*2}")
+    if (poll_answer == "yes"):
+        final_answer = inti
+        fa = [1,final_answer,Options[final_answer]]
+        return fa
+    else:
+        fa = [0]
+        return fa
     
     
 

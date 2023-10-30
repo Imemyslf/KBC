@@ -5,11 +5,13 @@ import Colors
 from lifeline import ranopt,poll,intro
 from KBC_Data import Questions, Money_Prices
 
-# Initialize a variable to keep track of the player's earnings
+# Initialize a variable money to keep track of the player's earnings
 money = 0
-# Initialize a variable to keep track of the player's 50-50 life_line.
+# Initialize a variable mokka_50 to keep track of the player's 50-50 life_line.
 mokka_50 = 1
-mokka_bar = 1
+# Initialize a variable to mokka_poll keep track of the player's Poll life_line.
+mokka_poll = 1
+# Initialize a variable leave to keep track of the player if they want to quit the game.
 leave = 1
 
 
@@ -57,50 +59,64 @@ for i in range(len(Questions)):
         print(f'{j+1}) {Options[j]}')
 
     # Prompt the user for Life line Options.
-    if (mokka_50 == 1 or mokka_bar == 1): # if user haven't used the life_life
+    if (mokka_50 == 1 or mokka_poll == 1): # if user haven't used the life_life
         print("\n Do  you want to use the life-line or You want to quit the game??")
-        if (mokka_50 == 1 and mokka_bar == 1): # if user hasn't used the life
+        if (mokka_50 == 1 and mokka_poll == 1): # if user hasn't used the life
             print(" 1. 50-50 \n 2. Poll \n 3. No, I am fine.\n 0. Quit.")
         elif (mokka_50 == 0): # if user hasn
             print(f" {Colors.red}1. 50-50 {Colors.reset}\n 2. No, I am fine.\n 0. Quit.")
-        elif (mokka_bar == 0):
+        elif (mokka_poll == 0):
             print(f" 1. 50-50 \n {Colors.red}2. Poll{Colors.reset} \n 3. No, I am fine.\n 0. Quit.")
         else:
             print(f" {Colors.red}1. 50-50{Colors.reset} \n {Colors.red}2. Poll{Colors.reset} \n 3. No, I am fine.\n 0. Quit.")
             
 
-        life_line = int(input("\n Enter your Choice:-\t"))
+    life_line = int(input("\n Enter your Choice:-\t"))
 
-
-        if ( life_line == 1):
-            if(mokka_50 == 1):
-                ranopt(Question,Options,Correct_Answer,i);
-                mokka_50 = 0  # user has used the life_line.                
-            else:
-                print("Aap yeh life-line estmal kar juke hai!!")
-        elif(life_line == 2):
-            if (mokka_bar == 1):
-                poll(Options,Correct_Answer)
-                mokka_bar = 0  # user has used the life_line.
-                print(f'Aapka {i+1} Sawal Hai {Money_Prices[i]} Rupay Ke Liye:- \n')
-                print(Question)
-                for j in range(len(Options)):
-                    print(f'{j+1}) {Options[j]}')
-            else:
-                print("Aap yeh life-line estmal kar juke hai!!")
-        elif (life_line == 0):
-            if (i == 0):
-                money = 0
-            else:
-                money = Money_Prices[i-1]
+    if ( life_line == 1):
+        if(mokka_50 == 1):
+            ranopt(Question,Options,Correct_Answer,i);
+            mokka_50 = 0  # user has used the life_line.                
+        else:
+            print("Aap yeh life-line estmal kar juke hai!!")
+    elif(life_line == 2):
+        if (mokka_poll == 1):
+            poll_answer = poll(Options,Correct_Answer)
+            # if (poll_answer == 0):
+            #     ans = 1
+            # else:
+            #     ans = 0
+            mokka_poll = 0  # user has used the life_line.
+            print(f'\nAapka {i+1} Sawal Tha {Money_Prices[i]} Rupay Ke Liye:- \n')
+            print(Question)
+            for j in range(len(Options)):
+                print(f'{j+1}) {Options[j]}')
+            time.sleep(3)
+        else:
+            print("Aap yeh life-line estmal kar juke hai!!")
+    elif (life_line == 0):
+        if (i == 0):
+            money = 0
             break
-    else:
-        print('')
+        else:
+            money = Money_Prices[i-1]
+            break
         
-
     # Prompt the user for their answer
-    Answer = int(input('\n Enter your answer in (1-4) : '))
-    time.sleep(3) # for Suspense
+    if ((life_line == 2) and poll_answer[0] == 0) :
+        Answer = int(input('\n Enter your answer in (1-4) : '))
+        print(f"\n Apka Jawab hai:- {Options[Answer - 1]}")
+        time.sleep(3) # for Suspense
+        
+    else:
+        if (life_line == 2 ):
+            Answer =  poll_answer[1] + 1
+            print(f"\n Apka Jawab hai:- {poll_answer[2]}")
+            time.sleep(3) # for Suspense
+        else:
+            Answer = int(input('\n Enter your answer in (1-4) : '))
+            time.sleep(3) # for Suspense
+            
 
     # Check if the user's answer matches the correct answer
     if Correct_Answer in Options[Answer-1]:
