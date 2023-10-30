@@ -2,8 +2,7 @@ import time
 import os
 import random
 import Colors
-from lifeline import ranopt,poll
-from iandr import intro
+from lifeline import ranopt,poll,intro
 from KBC_Data import Questions, Money_Prices
 
 # Initialize a variable to keep track of the player's earnings
