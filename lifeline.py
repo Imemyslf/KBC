@@ -43,6 +43,7 @@ def ranopt(Question,Options,Correct_Answer,i):
     os.system('cls') # Clears the terminal screen
     
     # Re-appearing the question with 50-50 life_life.
+    mon(i)
     print(f'Aapka {i+1} Sawal Hai {Money_Prices[i]} Rupay Ke Liye:- \n')
     print(Question)
     for j in range(len(Options)):
@@ -166,9 +167,9 @@ def poll(Options,Correct_Answer):
 def mon(i):
     print(" Current Status of Player:- ",end= " ")
     if (i == 0):
-        print(f"\n Levels Cleared = {i} \t Prize Money = {Colors.green}0{Colors.reset}")
+        print(f"\n Levels Cleared = {i} \t Prize Money = {Colors.green}0{Colors.reset}\n")
     else:
-        print(f"\n Levels Cleared = {i} \t Prize Money = {Colors.green}{Money_Prices[i -1]}{Colors.reset}")
+        print(f"\n Levels Cleared = {i} \t Prize Money = {Colors.green}{Money_Prices[i -1]}{Colors.reset}\n")
     
 
 if __name__ == "__main__":

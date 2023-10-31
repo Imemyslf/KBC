@@ -52,7 +52,7 @@ for i in range(len(Questions)):
     # Shuffle the answer options to present them in a random order
     random.shuffle(Options)
 
-    
+    mon(i)
     # Display the question and available options
     print(f'Aapka {i+1} Sawal Hai {Money_Prices[i]} Rupay Ke Liye:- \n')
     print(Question)
@@ -63,9 +63,9 @@ for i in range(len(Questions)):
     if (leave == 1): # if user haven't used the life_life
         print("\n Do  you want to use the life-line or You want to quit the game??")
         if (mokka_50 == 1 and mokka_poll == 1): # if user hasn't used the life
-            print(" 1. 50-50 \n 2. Poll \n 3. No, I am fine.\n 4. Prize Money\n 0. Quit.")
+            print(" 1. 50-50 \n 2. Poll \n 3. No, I am fine.\n 0. Quit.")
         elif (mokka_50 == 0 and mokka_poll == 1): # if user hasn
-            print(f" {Colors.red}1. 50-50 {Colors.reset}\n 2.Poll \n 3. No, I am fine.\n 4. Prize Money\n 0. Quit.")
+            print(f" {Colors.red}1. 50-50 {Colors.reset}\n 2.Poll \n 3. No, I am fine.\n 0. Quit.")
         elif (mokka_poll == 0 and mokka_50 == 1):
             print(f" 1. 50-50 \n {Colors.red}2. Poll{Colors.reset} \n 3. No, I am fine.\n 4. Prize Money\n 0. Quit.")
         elif (mokka_poll == 0 and mokka_50 == 0):
@@ -84,11 +84,7 @@ for i in range(len(Questions)):
     elif(life_line == 2):
         if (mokka_poll == 1):
             poll_answer = poll(Options,Correct_Answer)
-            # if (poll_answer == 0):
-            #     ans = 1
-            # else:
-            #     ans = 0
-            # mokka_poll = 0  # user has used the life_line.
+            mon(i)
             print(f'\nAapka {i+1} Sawal Tha {Money_Prices[i]} Rupay Ke Liye:- \n')
             print(Question)
             for j in range(len(Options)):
@@ -103,9 +99,6 @@ for i in range(len(Questions)):
         else:
             money = Money_Prices[i-1]
             break
-    elif (life_line == 4):
-        mon(i)
-        pass
         
     if (life_line == 2 and mokka_poll == 1):
         if (poll_answer[0] == 0 and mokka_poll == 1):
