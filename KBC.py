@@ -58,7 +58,7 @@ for i in range(len(Questions)):
     print(Question)
     for j in range(len(Options)):
         print(f'{j+1}) {Options[j]}')
-
+    
     # Prompt the user for Life line Options.
     if (leave == 1): # if user haven't used the life_life
         print("\n Do  you want to use the life-line or You want to quit the game??")
@@ -95,9 +95,11 @@ for i in range(len(Questions)):
     elif (life_line == 0):
         if (i == 0):
             money = 0
+            leave = 1
             break
         else:
             money = Money_Prices[i-1]
+            leave = 1 
             break
         
     if (life_line == 2 and mokka_poll == 1):
@@ -116,7 +118,8 @@ for i in range(len(Questions)):
             
         Answer = int(input('\n Enter your answer in (1-4) : '))
         time.sleep(3) # for Suspense
-        
+        # if (Answer == 5):
+            
     # Check if the user's answer matches the correct answer
     if Correct_Answer in Options[Answer-1]:
         print(f'\n {Colors.green}Aap Jeeth Juke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')

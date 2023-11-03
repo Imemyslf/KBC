@@ -170,10 +170,34 @@ def mon(i):
         print(f"\n Levels Cleared = {i} \t Prize Money = {Colors.green}0{Colors.reset}\n")
     else:
         print(f"\n Levels Cleared = {i} \t Prize Money = {Colors.green}{Money_Prices[i -1]}{Colors.reset}\n")
-    
 
+def swap():
+    for i in range(len(Questions)):
+        
+        if (i == 0):
+            value = random.randint(0, 4)
+            
+            index_to_extract = 2  # Index of the element you want to separate
+
+            # Create two separate arrays using slicing
+            current_question = Questions[i][value]
+            remaining_questions = Questions[i][:value] + Questions[i][value + 1:]
+            
+            print("Current Question: ", current_question)
+            print("Remaining Question : ", remaining_questions)
+            
+            # print(i)
+            print(value)
+            Question, Options, Correct_Answer, Description = Questions[i][value].values()
+            ques = Question, Options, Correct_Answer, Description
+            print(ques)
+            # print(f"{Questions[i]}",end="\n\n")
+        else:
+            break
+    
 if __name__ == "__main__":
-    intro()
-    ranopt()
-    poll()
-    mon(5)
+    # intro()
+    # ranopt()
+    # poll()
+    # mon(5)
+    swap()
