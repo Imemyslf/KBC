@@ -3,6 +3,7 @@ import Colors
 import os
 from KBC_Data import Questions,Money_Prices
 
+
 space = " "
 # Introduction and Rules
 def intro():
@@ -48,9 +49,14 @@ def ranopt(Question,Options,Correct_Answer,i):
     print(Question)
     for j in range(len(Options)):
         print(f'{j+1}) {Options[j]}')
+    
+    Answer = int(input("Enter the answer:- "))
+    answer = [Answer,Options]
+    return answer
+
 
 # Life_line_2  
-def poll(Options,Correct_Answer):
+def poll(Question,Options,Correct_Answer,i):
     os.system('cls')
     choice = []
     space = " "
@@ -74,6 +80,7 @@ def poll(Options,Correct_Answer):
     # Randomly Selecting any 1 option from The Options list
     random_option = random.sample(range(len(Options)), 1)
     i_rand = random_option[0] # assigning the index value of the randomly selected option
+    print(i_rand)
     
     # Assigning the string of randomly selected option to i_rand_remove
     for i in range(len(Questions)):
@@ -148,6 +155,7 @@ def poll(Options,Correct_Answer):
         
         print("\n")
     
+    
     for i in range (len(choice)):
         if (choice[i] > large):
             large = choice[i]
@@ -159,10 +167,13 @@ def poll(Options,Correct_Answer):
     if (poll_answer == "yes"):
         final_answer = inti
         fa = [1,final_answer,Options[final_answer]]
+        # print(fa)
         return fa
     else:
         fa = [0]
         return fa
+
+
 
 def mon(i):
     print(" Current Status of Player:- ",end= " ")
@@ -170,6 +181,8 @@ def mon(i):
         print(f"\n Levels Cleared = {i} \t Prize Money = {Colors.green}0{Colors.reset}\n")
     else:
         print(f"\n Levels Cleared = {i} \t Prize Money = {Colors.green}{Money_Prices[i -1]}{Colors.reset}\n")
+
+
 
 def swap():
     for i in range(len(Questions)):
