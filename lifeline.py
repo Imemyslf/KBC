@@ -22,7 +22,14 @@ def intro():
     
     os.system('cls')
     
+def ques(Question,Options,i):
+    print(f'Aapka {i+1} Sawal Hai {Money_Prices[i]} Rupay Ke Liye:- \n')
     
+    print(Question)
+    
+    for j in range(len(Options)):
+        print(f'{j+1}) {Options[j]}')
+    pass   
 
 #Life_line_1
 def ranopt(Question,Options,Correct_Answer,i):
@@ -46,10 +53,11 @@ def ranopt(Question,Options,Correct_Answer,i):
     
     # Re-appearing the question with 50-50 life_life.
     mon(i)
-    print(f'Aapka {i+1} Sawal Hai {Money_Prices[i]} Rupay Ke Liye:- \n')
-    print(Question)
-    for j in range(len(Options)):
-        print(f'{j+1}) {Options[j]}')
+    ques(Question,Options,i)
+    # print(f'Aapka {i+1} Sawal Hai {Money_Prices[i]} Rupay Ke Liye:- \n')
+    # print(Question)
+    # for j in range(len(Options)):
+    #     print(f'{j+1}) {Options[j]}')
     
     Answer = int(input("Enter the answer:- "))
     answer = [Answer,Options]
@@ -199,13 +207,12 @@ def swap(i,value):
         #     print(f"\n{k+1}. {remaining_questions[k]}")
         # print(i)
         # print("\n",value)
-        index = random.randint(0,3)
         # print(f"\n\n Index:- {index}")
-        Question, Options, Correct_Answer, Description = remaining_questions[index].values()
-        ques = Question, Options, Correct_Answer, Description
+        Question, Options, Correct_Answer, Description = remaining_questions[random.randint(0,3)].values()
+        quest = Question, Options, Correct_Answer, Description
         # print(f"\n\n{ques}")
         
-        return ques
+        return quest
     
 def game():
     

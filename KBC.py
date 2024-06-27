@@ -1,8 +1,9 @@
 import time
+import re
 import os
 import random
 import Colors
-from lifeline import ranopt,poll,intro,mon,swap
+from lifeline import ranopt,poll,intro,mon,swap,ques
 from KBC_Data import Questions, Money_Prices
 
 
@@ -13,7 +14,7 @@ mokka_poll = 1
 mokka_swap = 1
 counter_for_ll = 1
 
-def ll(Questions_1=[],Options_1=[],Correct_Answer_1 = 0,value = 0):
+def ll(value = 0):
     # print(Questions_1)
     
     # print(c_mokka_50,c_mokka_poll)
@@ -25,11 +26,9 @@ def ll(Questions_1=[],Options_1=[],Correct_Answer_1 = 0,value = 0):
     # Initialize a variable mokka_50 to keep track of the player's 50-50 life_line.
     global mokka_50,mokka_poll,mokka_swap
     print(mokka_50,mokka_poll,mokka_swap)
-    # mokka_50 = c_mokka_50
-    # Initialize a variable to mokka_poll keep track of the player's Poll life_line.
-    # mokka_poll = c_mokka_poll
     
     def lifeline():
+        # global mokka_50,mokka_poll,mokka_swap
         while(True):
             
             if (leave == 1): # if user haven't used the life_life
@@ -43,11 +42,11 @@ def ll(Questions_1=[],Options_1=[],Correct_Answer_1 = 0,value = 0):
                 elif (mokka_50 == 1 and mokka_poll == 0 and mokka_swap == 1): 
                     print(f" 1. 50-50  \n {Colors.red}2. Poll \n {Colors.reset}3. Swap")
                 
-                elif (mokka_poll == 0 and mokka_50 == 1 and mokka_swap == 1):
-                    print(f" {Colors.red}1. 50-50 {Colors.reset}\n 2. Poll \n 3. Swap")
-                
                 elif (mokka_poll == 1 and mokka_50 == 0 and mokka_swap == 0): 
                     print(f" 1. 50-50 \n {Colors.reset} 2. Poll \n 3. Swap{Colors.reset}")
+                
+                elif (mokka_poll == 0 and mokka_50 == 1 and mokka_swap == 1):
+                    print(f" {Colors.red}1. 50-50 {Colors.reset}\n 2. Poll \n 3. Swap")
                 
                 elif (mokka_poll == 0 and mokka_50 == 1 and mokka_swap == 0):
                     print(f"{Colors.red} 1. 50-50 {Colors.reset}\n 2. Poll \n {Colors.red}3. Swap{Colors.reset}")
@@ -58,19 +57,18 @@ def ll(Questions_1=[],Options_1=[],Correct_Answer_1 = 0,value = 0):
                 elif (mokka_poll == 0 and mokka_50 == 0 and mokka_swap == 0):
                     print(f" {Colors.red}1. 50-50 \n 2. Poll \n 3. Swap {Colors.reset}")
                 
-                li_li = int(input("\n Enter your Choice:-\t"))
             
-            if li_li in [0,1,2,3]:
-                return li_li
+            li_li = input("\n Enter your Choice:-\t")
+            # if li_li in [0,1,2,3]:
+            if re.match(r'^[0-3]$',li_li):
+                return int(li_li)
             else:
                 print("Sorry, you chose wrong options. Please try again")
-                time.sleep(1)
+                time.sleep(2)
                 os.system('cls')
     
     
     life_line = lifeline()
-    print(life_line)
-    
     if ( life_line == 1 ):
         if ( mokka_50 == 1 ):
             Answer = ranopt(Question,Options,Correct_Answer,i)
@@ -90,21 +88,15 @@ def ll(Questions_1=[],Options_1=[],Correct_Answer_1 = 0,value = 0):
             # print(Options)
             # print(Correct_Answer)
             poll_answer = poll(Question,Options,Correct_Answer,i)
-            print(poll_answer)
             if(poll_answer[0] == 1):
                 poll_answer.append(Options)
                 poll_answer.append(2)
             else:
                 poll_answer[0] = 0
-                print(poll_answer)
                 
                 os.system('cls')
                 mon(i)
-                print(f'\nAapka {i+1} Sawal Tha {Money_Prices[i]} Rupay Ke Liye:- \n')
-                print(Question)
-                for j in range(len(Options)):
-                    print(f'{j+1}) {Options[j]}')
-                
+                ques(Question,Options,i)
                 Correct_Answer_poll = int(input("Enter you Answer: "))
                 poll_answer.append(Correct_Answer_poll)
                 poll_answer.append(Options)
@@ -122,18 +114,17 @@ def ll(Questions_1=[],Options_1=[],Correct_Answer_1 = 0,value = 0):
             qu,op,ca,des = Swap
             
             os.system('cls')
-            mon(i)
-            print(f'\nAapka {i+1} Sawal Tha {Money_Prices[i]} Rupay Ke Liye:- \n')
-            print(qu)
-            for j in range(len(op)):
-                print(f'{j+1}) {op[j]}')
             
+            mon(i)
+            ques(qu,op,i)
             answer = int(input("Enter you Answer: "))
+            
             Answer = []
             Answer.append(answer)
             Answer.append(op)
             Answer.append(ca)
             Answer.append(3)
+            
             mokka_swap = 0
             time.sleep(3)            
             return Answer
@@ -167,7 +158,7 @@ random.seed(time.time())
 
 # Loop through the questions
 for i in range(len(Questions)):
-    
+    print("Main loop")
     #Prompt the user to contiue playing.
     if (i == 5 or i == 10 or i == 15):
         print("\nKya app ghel jari rakhenge")
@@ -185,32 +176,30 @@ for i in range(len(Questions)):
     # Shuffle the answer options to present them in a random order
     random.shuffle(Options)
 
+    #Displaying the Current Point/Money values
     mon(i)
     # Display the question and available options
-    
-    print(f'Aapka {i+1} Sawal Hai {Money_Prices[i]} Rupay Ke Liye:- \n')
-    
-    print(Question)
-    
-    for j in range(len(Options)):
-        print(f'{j+1}) {Options[j]}')
+    ques(Question,Options,i)
     
     # Prompt the user for Life line Options.
-    print("5) Life-line Or Leave the game!!")
+    if mokka_50 == 0 and mokka_poll ==0 and mokka_swap == 0:
+        Answer = int(input('\n Enter your choice (1-4) : '))
+    else:
+        print("5) Life-line Or Leave the game!!")
+        Answer = int(input('\n Enter your choice (1-5) : '))
             
-    Answer = int(input('\n Enter your choice (1-5) : '))
     
     if (Answer == 5):
         
         if counter_for_ll == 1:
-            Answer_life = ll(Question,Options,Correct_Answer,value)
+            Answer_life = ll(value)
             if Answer_life == False:
                 counter_for_ll+=1
         
         while(counter_for_ll > 1):
             os.system('cls')
-            Answer_life = ll(Question,Options,Correct_Answer,value)
-            if Answer_life == 0:
+            Answer_life = ll(value)
+            if Answer_life != False:
                 break
             
         
@@ -233,7 +222,6 @@ for i in range(len(Questions)):
                 Options = Answer_life[1]
                 Answer = Answer_life[0]
                 Correct_Answer = Answer_life[2]
-                print(f"Options:- {Options}\n Answer: {Answer} \n Correct_answer: {Correct_Answer}")
         else :
                 Answer = 0
                 
@@ -246,11 +234,8 @@ for i in range(len(Questions)):
             money = Money_Prices[i-1]
             break
     
-            # break
     else:
     # Check if the user's answer matches the correct answer
-        print(Options)
-        print(Answer)
         if Correct_Answer in Options[Answer-1]:
             print(f'\n {Colors.green}Aap Jeeth Juke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')
             money = Money_Prices[i]
@@ -268,8 +253,7 @@ for i in range(len(Questions)):
             elif(i > 10 and i < 15):
                 money =  320000
             else:
-                money = Money_Prices[i]
-            
+                money = Money_Prices[i]            
             break
 
 # Display the total earnings and a thank you message
