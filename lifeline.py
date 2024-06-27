@@ -1,6 +1,7 @@
 import random
 import Colors
 import os
+import time
 from KBC_Data import Questions,Money_Prices
 
 
@@ -163,11 +164,10 @@ def poll(Question,Options,Correct_Answer,i):
     
     final_answer = Options[inti]
     print(f"\n Audience vote:- {final_answer}")
-    poll_answer= input(f"\n Do you want to continue with the poll?{space*2}")
-    if (poll_answer == "yes"):
+    poll_answer= input(f"\n Do you want to continue with the poll?(Y?N){space*2}")
+    if (poll_answer.upper() == "Y" or poll_answer.upper() == "YES"):
         final_answer = inti
         fa = [1,final_answer,Options[final_answer]]
-        # print(fa)
         return fa
     else:
         fa = [0]
@@ -184,33 +184,59 @@ def mon(i):
 
 
 
-def swap():
-    for i in range(len(Questions)):
-        
-        if (i == 0):
-            value = random.randint(0, 4)
-            
-            index_to_extract = 2  # Index of the element you want to separate
+def swap(i,value):
 
-            # Create two separate arrays using slicing
-            current_question = Questions[i][value]
-            remaining_questions = Questions[i][:value] + Questions[i][value + 1:]
-            
-            print("Current Question: ", current_question)
-            print("Remaining Question : ", remaining_questions)
-            
-            # print(i)
-            print(value)
-            Question, Options, Correct_Answer, Description = Questions[i][value].values()
-            ques = Question, Options, Correct_Answer, Description
-            print(ques)
-            # print(f"{Questions[i]}",end="\n\n")
-        else:
-            break
+        # Create two separate arrays using slicing
+        current_question = Questions[i][value]
+        remaining_questions = Questions[i][:value] + Questions[i][value + 1:]
+        
+        
+        
+        # print("\n\nCurrent Question: ", current_question)
+        # print("\n\nRemaining Question : ")
+        
+        # for k in range(len(remaining_questions)):
+        #     print(f"\n{k+1}. {remaining_questions[k]}")
+        # print(i)
+        # print("\n",value)
+        index = random.randint(0,3)
+        # print(f"\n\n Index:- {index}")
+        Question, Options, Correct_Answer, Description = remaining_questions[index].values()
+        ques = Question, Options, Correct_Answer, Description
+        # print(f"\n\n{ques}")
+        
+        return ques
     
+def game():
+    
+    random.seed(time.time())
+    for i in range(len(Questions)):
+        random_int = random.randint(0, 3)
+        print(random_int)
+        Qu,Op,Co_A,Des = Questions[i][random_int].values()
+        random.shuffle(Op)
+
+        print(Qu)
+        
+        for j in range(len(Op)):
+            print(f"{j+1} {Op[j]}")
+        
+        answer = input("")
+        if answer == "s":
+            Swap = list(swap(i,random_int))
+            qu,op,ca,des = Swap
+            print(Swap)
+            print(f"Question:-{qu}\nOptions:- {op}\n Correct answers:- {ca}\n Description:- {des}")            
+            # for j in range(len(Op)):
+            #     print(f"{j+1} {Op[j]}")
+            
+            
+        
 if __name__ == "__main__":
     # intro()
     # ranopt()
     # poll()
     # mon(5)
-    swap()
+    # swap()
+    game()
+    pass
