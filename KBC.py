@@ -25,7 +25,6 @@ def ll(value=0):
     # Initialize a variable leave to keep track of the player if they want to quit the game.
     global leave
     leave = 1
-    # Initialize a variable money to keep track of the player's earnings
     global money
     # Initialize a variable mokka_50 to keep track of the player's 50-50 life_line.
     global mokka_50, mokka_poll, mokka_swap
@@ -58,6 +57,7 @@ def ll(value=0):
                 return int(li_li)
             else:
                 print("Sorry, you chose the wrong option. Please try again.")
+                print("Sorry, you chose the wrong option. Please try again.")
                 time.sleep(2)
                 os.system('cls')
 
@@ -75,6 +75,7 @@ def ll(value=0):
             return Answer
         else:
             print(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}")
+            print(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}")
             return False
     elif life_line == 2:
         if mokka_poll == 1:
@@ -90,6 +91,8 @@ def ll(value=0):
                 mon(i)
                 ques(Question, Options, i)
                 Correct_Answer_poll = int(input("Enter your answer: "))
+                ques(Question, Options, i)
+                Correct_Answer_poll = int(input("Enter your answer: "))
                 poll_answer.append(Correct_Answer_poll)
                 poll_answer.append(Options)
                 poll_answer.append(2)
@@ -98,7 +101,7 @@ def ll(value=0):
             time.sleep(3)
             return poll_answer
         else:
-            print("Aap yeh life-line estmal kar juke hai!!")
+            print(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}")
             return False
     elif life_line == 3:
         if mokka_swap == 1:
@@ -119,9 +122,10 @@ def ll(value=0):
 
             mokka_swap = 0
             time.sleep(3)
+            time.sleep(3)
             return Answer
         else:
-            print("Aap yeh life-line estmal kar juke hai!!")
+            print(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}")
             return False
             # print(f"Question:-{qu}\nOptions:- {op}\n Correct answers:- {ca}\n Description:- {des}")      
 
@@ -129,8 +133,11 @@ def ll(value=0):
         if i == 0:
             money = 0
             leave_game = [money, 0]
+            leave_game = [money, 0]
             return leave_game
         else:
+            money = Money_Prices[i - 1]
+            leave_game = [money, 0]
             money = Money_Prices[i - 1]
             leave_game = [money, 0]
             return leave_game
@@ -142,11 +149,8 @@ os.system('cls')  # Clears the terminal screen
 # Display a welcome message
 print(f'\n\n{Colors.blue}WELCOME TO \'KON BANEGA CROREPATTI\'\n{Colors.reset}')
 intro()
-
-# Seed the random number generator with the current time to make shuffling random
 random.seed(time.time())
 
-# Loop through the questions
 for i in range(len(Questions)):
     print("Main loop")
     #Prompt the user to contiue playing.
@@ -155,17 +159,16 @@ for i in range(len(Questions)):
         print(f"Dhanrashi apke pass hai {Money_Prices[i]}")
         print(f"{Colors.yellow}1. Jari rakhenge \n2. Nahi \n{Colors.reset}")
         choice = int(input("Enter your choice: "))
+        print(f"{Colors.yellow}1. Jari rakhenge \n2. Nahi \n{Colors.reset}")
+        choice = int(input("Enter your choice: "))
         os.system('cls')
         if choice == 2: # Game Over!!
             break
 
     value = random.randint(0, 4)
-    # Randomly select a question, its options, correct answer, and description
     Question, Options, Correct_Answer, Description = Questions[i][value].values()
     # Shuffle the answer options to present them in a random order
     random.shuffle(Options)
-
-    #Displaying the Current Point/Money values
     mon(i)
     # Display the question and available options
     ques(Question, Options, i)
@@ -219,43 +222,37 @@ for i in range(len(Questions)):
             else:
                 Options = Answer_life[2]
                 Answer = Answer_life[1]
-        elif (Answer_life[len(Answer_life) - 1] == 3):
-            if (len(Answer_life) == 4):
+        elif Answer_life[len(Answer_life) - 1] == 3:
+            if len(Answer_life) == 4:
                 Options = Answer_life[1]
                 Answer = Answer_life[0]
                 Correct_Answer = Answer_life[2]
-        else :
-                Answer = 0
-                
-        
-    if (Answer == 0):        
-        if (i == 0):
+        else:
+            Answer = 0
+
+    if Answer == 0:
+        if i == 0:
             money = 0
             break
         else:
-            money = Money_Prices[i-1]
+            money = Money_Prices[i - 1]
             break
-    
     else:
-    # Check if the user's answer matches the correct answer
-        if Correct_Answer in Options[Answer-1]:
-            print(f'\n {Colors.green}Aap Jeeth Juke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')
+        if Correct_Answer in Options[Answer - 1]:
+            print(f'\n{Colors.green}Aap Jeet Chuke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')
             money = Money_Prices[i]
-            time.sleep(3)# Timer to display that answer is correct.
-            os.system('cls')# Clears the terminal screen
-        
+            time.sleep(3)
+            os.system('cls')
         else:
-            
-            print(f'\n{Colors.red}Galat Jawaab Aapka khel Yahi Samapt Hota Hai!!\n{Colors.reset}')
-            
-            if (i >= 0 and i < 5):
+            print(f'\n{Colors.red}Galat Jawaab! Aapka khel yahi samapt hota hai!!\n{Colors.reset}')
+            if i >= 0 and i < 5:
                 money = 0
-            elif (i > 5 and i < 10 ):
-                money =  10000
-            elif(i > 10 and i < 15):
-                money =  320000
+            elif i >= 5 and i < 10:
+                money = 10000
+            elif i >= 10 and i < 15:
+                money = 320000
             else:
-                money = Money_Prices[i]            
+                money = Money_Prices[i]
             break
 
 # Display the total earnings and a thank you message
