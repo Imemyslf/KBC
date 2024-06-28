@@ -39,7 +39,7 @@ def get_user_input_with_timeout(timeout):
 
     def input_thread():
         nonlocal user_input
-        user_input = int(input("\nEnter your choice:-  "))
+        user_input = int(input())
         stop_event.set()  # Stop the countdown thread when input is received
 
     def countdown_thread():
@@ -47,7 +47,7 @@ def get_user_input_with_timeout(timeout):
         for remaining in range(timeout, 0, -1):
             if stop_event.is_set():
                 break  # Exit the loop if stop_event is set
-            print(f"\rTime remaining: {remaining} seconds ", end="")
+            print(f"\rTime remaining: {remaining} seconds \t Enter your Choice:- ", end="")
             time.sleep(1)
         if not stop_event.is_set():
             print("\rTime remaining: 0 seconds")
@@ -92,10 +92,6 @@ def ranopt(Question,Options,Correct_Answer,i):
     # Re-appearing the question with 50-50 life_life.
     mon(i)
     ques(Question,Options,i)
-    # print(f'Aapka {i+1} Sawal Hai {Money_Prices[i]} Rupay Ke Liye:- \n')
-    # print(Question)
-    # for j in range(len(Options)):
-    #     print(f'{j+1}) {Options[j]}')
     
     Answer = int(input("Enter the answer:- "))
     answer = [Answer,Options]

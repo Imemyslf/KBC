@@ -8,7 +8,6 @@ from lifeline import ranopt, poll, intro, mon, swap, ques,get_user_input_with_ti
 from KBC_Data import Questions, Money_Prices
 
 money = 0
-space = " "
 mokka_50 = 1
 mokka_poll = 1
 mokka_swap = 1
@@ -16,9 +15,7 @@ counter_for_ll = 1
 timeout_duration = 20
 
 
-
-
-def ll(value=0):
+def life_line(value=0):
     # print(Questions_1)
     
     # print(c_mokka_50,c_mokka_poll)
@@ -66,25 +63,27 @@ def ll(value=0):
     if life_line == 1:
         if mokka_50 == 1:
             Answer = ranopt(Question, Options, Correct_Answer, i)
-            # Answer
+
             # user has used the life_line. 
             Answer.append(1)
-            # Answer[2]  = 1
-            # print(Answer)
+            
             mokka_50 = 0
+            
             return Answer
         else:
             print(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}")
             print(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}")
             return False
+    
     elif life_line == 2:
         if mokka_poll == 1:
-            # print(Options)
-            # print(Correct_Answer)
+            
             poll_answer = poll(Question, Options, Correct_Answer, i)
+            
             if poll_answer[0] == 1:
                 poll_answer.append(Options)
                 poll_answer.append(2)
+            
             else:
                 poll_answer[0] = 0
                 os.system('cls')
@@ -100,11 +99,14 @@ def ll(value=0):
             mokka_poll = 0
             time.sleep(3)
             return poll_answer
+        
         else:
             print(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}")
             return False
+    
     elif life_line == 3:
         if mokka_swap == 1:
+            
             Swap = swap(i, value)
             qu, op, ca, des = Swap
 
@@ -124,6 +126,7 @@ def ll(value=0):
             time.sleep(3)
             time.sleep(3)
             return Answer
+        
         else:
             print(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}")
             return False
@@ -152,7 +155,7 @@ intro()
 random.seed(time.time())
 
 for i in range(len(Questions)):
-    print("Main loop")
+    # print("Main loop")
     #Prompt the user to contiue playing.
     if i == 5 or i == 10 or i == 15:
         print("\nKya aap khel jari rakhenge?")
@@ -171,41 +174,34 @@ for i in range(len(Questions)):
     random.shuffle(Options)
     mon(i)
     # Display the question and available options
-    ques(Question, Options, i)
-    
-    # Prompt the user for Life line Options.
-
-    # if mokka_50 == 0 and mokka_poll == 0 and mokka_swap == 0:
-    #     Answer = int(input('\nEnter your choice (1-4): '))
-    # else:
-    #     print("5) Life-line or leave the game!")
-    #     Answer = int(input('\nEnter your choice (1-5): '))
-    
+    ques(Question, Options, i) 
     
     if mokka_50 == 0 and mokka_poll == 0 and mokka_swap == 0:
         print("You have 20 seconds to provide input.")
         Check = get_user_input_with_timeout(timeout_duration)
         if Check:
             Answer = Check
+        else:
+            Answer = 0
     else:
         print("5) Life-line Or Leave the game!!")
         print("You have 20 seconds to provide input.")
         Check = get_user_input_with_timeout(timeout_duration)
-        print("\n", Check, "\n")
         if Check:
             Answer = Check
         else:
             Answer = 0
 
     if Answer == 5:
+        
         if counter_for_ll == 1:
-            Answer_life = ll(value)
+            Answer_life = life_line(value)
             if Answer_life == False:
                 counter_for_ll += 1
 
         while counter_for_ll > 1:
             os.system('cls')
-            Answer_life = ll(value)
+            Answer_life = life_line(value)
             if Answer_life != False:
                 break
             
