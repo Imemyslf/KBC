@@ -1,10 +1,9 @@
 import time
-import threading
 import re
 import os
 import random
 import Colors
-from lifeline import ranopt, poll, intro, mon, swap, ques,get_user_input_with_timeout
+from lifeline import ran_50_50, poll, swap, intro, mon, question ,get_user_input_with_timeout
 from KBC_Data import Questions, Money_Prices
 
 money = 0
@@ -16,9 +15,7 @@ timeout_duration = 20
 
 
 def life_line(value=0):
-    # print(Questions_1)
     
-    # print(c_mokka_50,c_mokka_poll)
     # Initialize a variable leave to keep track of the player if they want to quit the game.
     global leave
     leave = 1
@@ -48,12 +45,11 @@ def life_line(value=0):
                 elif mokka_50 == 0 and mokka_poll == 0 and mokka_swap == 0:
                     print(f"{Colors.red}1. 50-50 \n2. Poll \n3. Swap {Colors.reset}")
 
-            li_li = input("\nEnter your choice: ")
-            # if li_li in [0,1,2,3]:
-            if re.match(r'^[0-3]$', li_li):
-                return int(li_li)
+            lifeline_selected = input("\nEnter your choice: ")
+            # if lifeline_selected in [0,1,2,3]:
+            if re.match(r'^[0-3]$', lifeline_selected):
+                return int(lifeline_selected)
             else:
-                print("Sorry, you chose the wrong option. Please try again.")
                 print("Sorry, you chose the wrong option. Please try again.")
                 time.sleep(2)
                 os.system('cls')
@@ -62,16 +58,15 @@ def life_line(value=0):
     life_line = lifeline_selection()
     if life_line == 1:
         if mokka_50 == 1:
-            Answer = ranopt(Question, Options, Correct_Answer, i)
+            Answer = ran_50_50(Question, Options, Correct_Answer, i)
 
-            # user has used the life_line. 
+            # Which line user had selected. 
             Answer.append(1)
-            
+            #user has used  the lifeline
             mokka_50 = 0
             
             return Answer
         else:
-            print(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}")
             print(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}")
             return False
     
@@ -88,9 +83,7 @@ def life_line(value=0):
                 poll_answer[0] = 0
                 os.system('cls')
                 mon(i)
-                ques(Question, Options, i)
-                Correct_Answer_poll = int(input("Enter your answer: "))
-                ques(Question, Options, i)
+                question(Question, Options, i)
                 Correct_Answer_poll = int(input("Enter your answer: "))
                 poll_answer.append(Correct_Answer_poll)
                 poll_answer.append(Options)
@@ -113,7 +106,7 @@ def life_line(value=0):
             os.system('cls')
 
             mon(i)
-            ques(qu, op, i)
+            question(qu, op, i)
             answer = int(input("Enter your answer: "))
 
             Answer = []
@@ -147,6 +140,7 @@ def life_line(value=0):
     else:
         return False
 
+
 # Start of the game....
 os.system('cls')  # Clears the terminal screen
 # Display a welcome message
@@ -174,7 +168,7 @@ for i in range(len(Questions)):
     random.shuffle(Options)
     mon(i)
     # Display the question and available options
-    ques(Question, Options, i) 
+    question(Question, Options, i) 
     
     if mokka_50 == 0 and mokka_poll == 0 and mokka_swap == 0:
         print("You have 20 seconds to provide input.")

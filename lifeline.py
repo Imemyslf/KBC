@@ -23,7 +23,7 @@ def intro():
     
     os.system('cls')
     
-def ques(Question,Options,i):
+def question(Question,Options,i):
     print(f'Aapka {i+1} Sawal Hai {Money_Prices[i]} Rupay Ke Liye:- \n')
     
     print(Question)
@@ -70,7 +70,7 @@ def get_user_input_with_timeout(timeout):
     return user_input
 
 #Life_line_1
-def ranopt(Question,Options,Correct_Answer,i):
+def ran_50_50(Question,Options,Correct_Answer,i):
     #Passing the Correct_Answer into the variable answer
     answer = Correct_Answer
 
@@ -91,7 +91,7 @@ def ranopt(Question,Options,Correct_Answer,i):
     
     # Re-appearing the question with 50-50 life_life.
     mon(i)
-    ques(Question,Options,i)
+    question(Question,Options,i)
     
     Answer = int(input("Enter the answer:- "))
     answer = [Answer,Options]
