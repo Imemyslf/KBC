@@ -1,5 +1,6 @@
 import random
 import Colors
+import threading
 import os
 import time
 from KBC_Data import Questions,Money_Prices
@@ -30,6 +31,43 @@ def ques(Question,Options,i):
     for j in range(len(Options)):
         print(f'{j+1}) {Options[j]}')
     pass   
+
+
+stop_event = threading.Event()
+def get_user_input_with_timeout(timeout):
+    user_input = None
+
+    def input_thread():
+        nonlocal user_input
+        user_input = int(input("\nEnter your choice:-  "))
+        stop_event.set()  # Stop the countdown thread when input is received
+
+    def countdown_thread():
+        print("\n")
+        for remaining in range(timeout, 0, -1):
+            if stop_event.is_set():
+                break  # Exit the loop if stop_event is set
+            print(f"\rTime remaining: {remaining} seconds ", end="")
+            time.sleep(1)
+        if not stop_event.is_set():
+            print("\rTime remaining: 0 seconds")
+
+    stop_event.clear()  # Clear the event before starting new threads
+
+    input_thread_obj = threading.Thread(target=input_thread)
+    input_thread_obj.daemon = True
+    input_thread_obj.start()
+
+    countdown_thread_obj = threading.Thread(target=countdown_thread)
+    countdown_thread_obj.daemon = True
+    countdown_thread_obj.start()
+
+    input_thread_obj.join(timeout)
+
+    if input_thread_obj.is_alive():
+        print("\nTimeout! You didn't provide input within the specified time.")
+
+    return user_input
 
 #Life_line_1
 def ranopt(Question,Options,Correct_Answer,i):
@@ -70,9 +108,6 @@ def poll(Question,Options,Correct_Answer,i):
     choice = []
     space = " "
     large = 0
-
-    # for i in range(len(Questions)):
-    #     Question, Options, Correct_Answer, Description = Questions[i][random.randint(0, 4)].values()
 
     #Assigning The correct answer in the variable answer
     answer = Correct_Answer
@@ -197,20 +232,8 @@ def swap(i,value):
         # Create two separate arrays using slicing
         current_question = Questions[i][value]
         remaining_questions = Questions[i][:value] + Questions[i][value + 1:]
-        
-        
-        
-        # print("\n\nCurrent Question: ", current_question)
-        # print("\n\nRemaining Question : ")
-        
-        # for k in range(len(remaining_questions)):
-        #     print(f"\n{k+1}. {remaining_questions[k]}")
-        # print(i)
-        # print("\n",value)
-        # print(f"\n\n Index:- {index}")
         Question, Options, Correct_Answer, Description = remaining_questions[random.randint(0,3)].values()
         quest = Question, Options, Correct_Answer, Description
-        # print(f"\n\n{ques}")
         
         return quest
     
@@ -234,8 +257,7 @@ def game():
             qu,op,ca,des = Swap
             print(Swap)
             print(f"Question:-{qu}\nOptions:- {op}\n Correct answers:- {ca}\n Description:- {des}")            
-            # for j in range(len(Op)):
-            #     print(f"{j+1} {Op[j]}")
+            
             
             
         
