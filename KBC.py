@@ -15,36 +15,26 @@ timeout_duration = 20
 
 start_time = time.time()
 def life_line(value=0):
-    
-    # Initialize a variable leave to keep track of the player if they want to quit the game.
     global leave
     leave = 1
     global money
     # Initialize a variable mokka_50 to keep track of the player's 50-50 life_line.
     global mokka_50, mokka_poll, mokka_swap
-
     def lifeline_selection():
-        # global mokka_50,mokka_poll,mokka_swap
-        while True:
-            if leave == 1:  # if user hasn't used the lifeline
-                print("\nDo you want to use the life-line or you want to quit the game?")
-                if mokka_50 == 1 and mokka_poll == 1 and mokka_swap == 1:
-                    print("1. 50-50 \n2. Poll \n3. Swap")
-                elif mokka_50 == 1 and mokka_poll == 1 and mokka_swap == 0:
-                    print(f"1. 50-50 \n2. Poll \n{Colors.red}3. Swap {Colors.reset}")
-                elif mokka_50 == 1 and mokka_poll == 0 and mokka_swap == 1:
-                    print(f"1. 50-50 \n{Colors.red}2. Poll {Colors.reset}\n3. Swap")
-                elif mokka_50 == 1 and mokka_poll == 0 and mokka_swap == 0:
-                    print(f"1. 50-50 \n{Colors.red}2. Poll \n3. Swap{Colors.reset}")
-                elif mokka_50 == 0 and mokka_poll == 1 and mokka_swap == 1:
-                    print(f"{Colors.red}1. 50-50 {Colors.reset}\n2. Poll \n3. Swap")
-                elif mokka_50 == 0 and mokka_poll == 1 and mokka_swap == 0:
-                    print(f"{Colors.red}1. 50-50 {Colors.reset}\n2. Poll \n{Colors.red}3. Swap{Colors.reset}")
-                elif mokka_50 == 0 and mokka_poll == 0 and mokka_swap == 1:
-                    print(f"{Colors.red}1. 50-50 \n2. Poll {Colors.reset}\n3. Swap")
-                elif mokka_50 == 0 and mokka_poll == 0 and mokka_swap == 0:
-                    print(f"{Colors.red}1. 50-50 \n2. Poll \n3. Swap {Colors.reset}")
-
+        lifelines = {
+            "1. 50-50": mokka_50,
+            "2. Poll": mokka_poll,
+            "3. Swap": mokka_swap
+        }
+        
+        while leave == 1:  # if user hasn't used the lifeline
+            print("\nDo you want to use the life-line or do you want to quit the game?")
+            for lifeline, available in lifelines.items():
+                if available:
+                    print(lifeline)
+                else:
+                    print(f"{Colors.red}{lifeline}{Colors.reset}")
+                    
             lifeline_selected = input("\nEnter your choice: ")
             # if lifeline_selected in [0,1,2,3]:
             if re.match(r'^[0-3]$', lifeline_selected):
@@ -63,7 +53,6 @@ def life_line(value=0):
             Answer.append(1)
             #user has used  the lifeline
             mokka_50 = 0
-            
             return Answer
         else:
             print(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}")
@@ -71,13 +60,10 @@ def life_line(value=0):
     
     elif life_line == 2:
         if mokka_poll == 1:
-            
             poll_answer = poll(Question, Options, Correct_Answer, i)
-            
             if poll_answer[0] == 1:
                 poll_answer.append(Options)
                 poll_answer.append(2)
-            
             else:
                 poll_answer[0] = 0
                 os.system('cls')
@@ -87,38 +73,30 @@ def life_line(value=0):
                 poll_answer.append(Correct_Answer_poll)
                 poll_answer.append(Options)
                 poll_answer.append(2)
-
             mokka_poll = 0
             time.sleep(3)
             return poll_answer
-        
         else:
             print(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}")
             return False
     
     elif life_line == 3:
         if mokka_swap == 1:
-            
             Swap = swap(i, value)
             qu, op, ca, des = Swap
-
             os.system('cls')
-
             mon(i)
             question(qu, op, i)
             answer = int(input("Enter your answer: "))
-
             Answer = []
             Answer.append(answer)
             Answer.append(op)
             Answer.append(ca)
             Answer.append(3)
-
             mokka_swap = 0
             time.sleep(3)
             time.sleep(3)
             return Answer
-        
         else:
             print(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}")
             return False
@@ -128,11 +106,8 @@ def life_line(value=0):
         if i == 0:
             money = 0
             leave_game = [money, 0]
-            leave_game = [money, 0]
             return leave_game
         else:
-            money = Money_Prices[i - 1]
-            leave_game = [money, 0]
             money = Money_Prices[i - 1]
             leave_game = [money, 0]
             return leave_game
@@ -180,9 +155,11 @@ for i in range(len(Questions)):
         print("5) Life-line Or Leave the game!!")
         print("You have 20 seconds to provide input.")
         Check = get_user_input_with_timeout(timeout_duration)
+        print("\n\nCheck:- ",Check)
         if Check:
             Answer = Check
         else:
+            print(f"{Check}")
             Answer = 0
 
     if Answer == 5:
@@ -227,7 +204,6 @@ for i in range(len(Questions)):
             money = Money_Prices[i - 1]
             break
     else:
-        
         if Correct_Answer in Options[Answer - 1]:
             print(f'\n{Colors.green}Aap Jeet Chuke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')
             money = Money_Prices[i]
@@ -235,11 +211,11 @@ for i in range(len(Questions)):
             os.system('cls')
         else:
             print(f'\n{Colors.red}Galat Jawaab! Aapka khel yahi samapt hota hai!!\n{Colors.reset}')
-            if i >= 0 and i < 5:
+            if 0 <= i < 5:
                 money = 0
-            elif i >= 5 and i < 10:
+            elif 5 <= i < 10:
                 money = 10000
-            elif i >= 10 and i < 15:
+            elif 10 <= i < 15:
                 money = 320000
             else:
                 money = Money_Prices[i]
@@ -249,6 +225,7 @@ for i in range(len(Questions)):
 print(f'\n Aap apne saath {Colors.blue}{money}{Colors.reset} Rupay Lekar Ja Rahe Hai!!')
 end_time = time.time()
 total_time = end_time - start_time
+print("\n\nTotal:- ",total_time)
 user_data(money,total_time)
 print(f'\n {Colors.pink}DHANYAWAAD HUMARA KHEL KHELNE KE LIYE{Colors.reset}')
 print("\n\n")

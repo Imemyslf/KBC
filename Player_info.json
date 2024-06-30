@@ -1,5 +1,29 @@
 {
    "player": [
-      
+      {
+         "Username": "0",
+         "Points": 0,
+         "Total Time": "0.027 mins"
+      },
+      {
+         "Username": "0",
+         "Points": 1000,
+         "Total Time": "0.129 mins"
+      },
+      {
+         "Username": "Ishan",
+         "Points": 3000,
+         "Total Time": "0.650 mins"
+      },
+      {
+         "Username": "0",
+         "Points": 3000,
+         "Total Time": "0.928 mins"
+      },
+      {
+         "Username": "0",
+         "Points": 1000,
+         "Total Time": "0.180 mins"
+      }
    ]
 }

@@ -63,9 +63,7 @@ def intro():
     
 def question(Question,Options,i):
     print(f'Aapka {i+1} Sawal Hai {Money_Prices[i]} Rupay Ke Liye:- \n')
-    
     print(Question)
-    
     for j in range(len(Options)):
         print(f'{j+1}) {Options[j]}')
     pass   
@@ -77,8 +75,17 @@ def get_user_input_with_timeout(timeout):
 
     def input_thread():
         nonlocal user_input
-        user_input = int(input())
-        stop_event.set()  # Stop the countdown thread when input is received
+        try:
+            input_value = input()
+            if input_value.strip():  # Check if input is not an empty string
+                user_input = int(input_value)
+            stop_event.set()  # Stop the countdown thread when input is received or invalid input is handled
+        except ValueError:
+            print("Invalid input. Please enter a valid integer.")
+            stop_event.set()
+        except Exception as e:
+            print(f"Exception in input_thread: {e}")
+            stop_event.set()
 
     def countdown_thread():
         print("\n")
@@ -87,8 +94,6 @@ def get_user_input_with_timeout(timeout):
                 break  # Exit the loop if stop_event is set
             print(f"\rTime remaining: {remaining} seconds \t Enter your Choice:- ", end="")
             time.sleep(1)
-        if not stop_event.is_set():
-            print("\rTime remaining: 0 seconds")
 
     stop_event.clear()  # Clear the event before starting new threads
 
@@ -105,7 +110,10 @@ def get_user_input_with_timeout(timeout):
     if input_thread_obj.is_alive():
         print("\nTimeout! You didn't provide input within the specified time.")
 
+    stop_event.set()  # Ensure the countdown thread stops
+
     return user_input
+
 
 #Life_line_1
 def ran_50_50(Question,Options,Correct_Answer,i):
@@ -277,29 +285,7 @@ def swap(i,value):
         quest = Question, Options, Correct_Answer, Description
         
         return quest
-    
-def game():
-    
-    random.seed(time.time())
-    for i in range(len(Questions)):
-        random_int = random.randint(0, 3)
-        print(random_int)
-        Qu,Op,Co_A,Des = Questions[i][random_int].values()
-        random.shuffle(Op)
-
-        print(Qu)
-        
-        for j in range(len(Op)):
-            print(f"{j+1} {Op[j]}")
-        
-        answer = input("")
-        if answer == "s":
-            Swap = list(swap(i,random_int))
-            qu,op,ca,des = Swap
-            print(Swap)
-            print(f"Question:-{qu}\nOptions:- {op}\n Correct answers:- {ca}\n Description:- {des}")            
-            
-            
+   
             
         
 if __name__ == "__main__":
@@ -308,5 +294,4 @@ if __name__ == "__main__":
     # poll()
     # mon(5)
     # swap()
-    game()
     pass
