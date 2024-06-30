@@ -3,7 +3,7 @@ import re
 import os
 import random
 import Colors
-from lifeline import ran_50_50, poll, swap, intro, mon, question ,get_user_input_with_timeout
+from lifeline import ran_50_50, poll, swap, intro, mon, question ,get_user_input_with_timeout,user_data
 from KBC_Data import Questions, Money_Prices
 
 money = 0
@@ -13,7 +13,7 @@ mokka_swap = 1
 counter_for_ll = 1
 timeout_duration = 20
 
-
+start_time = time.time()
 def life_line(value=0):
     
     # Initialize a variable leave to keep track of the player if they want to quit the game.
@@ -59,7 +59,6 @@ def life_line(value=0):
     if life_line == 1:
         if mokka_50 == 1:
             Answer = ran_50_50(Question, Options, Correct_Answer, i)
-
             # Which line user had selected. 
             Answer.append(1)
             #user has used  the lifeline
@@ -200,11 +199,11 @@ for i in range(len(Questions)):
                 break
             
         if Answer_life[len(Answer_life) - 1] == 1:
-            if len(Answer_life) == 2:
-                Options = Answer_life[1]
-                Answer = Answer_life[0]
+            if len(Answer_life) == 4:
+                    Options = Answer_life[2]
+                    Answer = Answer_life[1]
             else:
-                Answer = Answer_life[0]
+                Answer = Answer_life[1]
         elif Answer_life[len(Answer_life) - 1] == 2:
             if (len(Answer_life) == 5):
                 Options = Answer_life[3]
@@ -228,6 +227,7 @@ for i in range(len(Questions)):
             money = Money_Prices[i - 1]
             break
     else:
+        
         if Correct_Answer in Options[Answer - 1]:
             print(f'\n{Colors.green}Aap Jeet Chuke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')
             money = Money_Prices[i]
@@ -247,5 +247,8 @@ for i in range(len(Questions)):
 
 # Display the total earnings and a thank you message
 print(f'\n Aap apne saath {Colors.blue}{money}{Colors.reset} Rupay Lekar Ja Rahe Hai!!')
+end_time = time.time()
+total_time = end_time - start_time
+user_data(money,total_time)
 print(f'\n {Colors.pink}DHANYAWAAD HUMARA KHEL KHELNE KE LIYE{Colors.reset}')
 print("\n\n")

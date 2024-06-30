@@ -16,6 +16,8 @@ Money_Prices = [
     70000000
 ]
 
+Player = []
+
 Questions = [
     # Level 1
     [

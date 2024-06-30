@@ -3,10 +3,48 @@ import Colors
 import threading
 import os
 import time
-from KBC_Data import Questions,Money_Prices
+import json
+from KBC_Data import Questions,Money_Prices,Player
 
 
 space = " "
+
+def user_data(money,to_ti):
+    def get_player_info(filepath):
+        try:
+            with open(filepath, 'r') as f:
+                data = json.load(f)
+                return data.get('player',[])
+            
+        except FileNotFoundError:
+            return []
+    
+    def save_player_info(filepath,player):
+        with open(filepath, 'w') as f:
+            json.dump({'player': player},f,indent=3)
+                        
+    def add_player_info(filepath,username,points,to_ti):
+        player = get_player_info(filepath)
+        
+        to_ti = f"{to_ti:.3f} mins"
+        
+        new_player = {
+            'Username': username,
+            'Points': points,
+            'Total Time': to_ti
+        }
+        
+        player.append(new_player)
+        save_player_info(filepath,player)
+    
+    user_name = input("Enter your User Name:- ")
+    points = money
+    total_time = to_ti / 60
+    filepath = 'Player_info.json'
+    
+    add_player_info(filepath,user_name,points,total_time)
+
+
 # Introduction and Rules
 def intro():
     print(f"\n{Colors.cyan} Rules:-{Colors.reset}")
@@ -93,8 +131,15 @@ def ran_50_50(Question,Options,Correct_Answer,i):
     mon(i)
     question(Question,Options,i)
     
-    Answer = int(input("Enter the answer:- "))
-    answer = [Answer,Options]
+    timeout_duration = 20
+    print("You have 20 seconds to provide input.")
+    Check = get_user_input_with_timeout(timeout_duration)
+    
+    if Check:
+        Answer = Check
+    else:
+        Answer = 0
+    answer = [Check,Answer,Options]
     return answer
 
 
