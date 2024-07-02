@@ -37,7 +37,6 @@ def life_line(value=0):
                     print(f"{Colors.red}{lifeline}{Colors.reset}")
                     
             lifeline_selected = input("\nEnter your choice: ")
-            # if lifeline_selected in [0,1,2,3]:
             if re.match(r'^[0-3]$', lifeline_selected):
                 return int(lifeline_selected)
             else:
@@ -51,7 +50,8 @@ def life_line(value=0):
         if mokka_50 == 1:
             Answer = ran_50_50(Question, Options, Correct_Answer, i)
             # Which line user had selected. 
-            Answer.append(1)
+            if Answer[0] != None:
+                Answer.append(1)
             #user has used  the lifeline
             mokka_50 = 0
             return Answer
@@ -85,15 +85,18 @@ def life_line(value=0):
             os.system('cls')
             mon(i)
             question(qu, op, i)
-            answer = int(input("Enter your answer: "))
-            Answer = [answer,op,ca,3]
+            timeout_duration = 20
+            print("You have 20 seconds to provide input.")
+            Check = get_user_input_with_timeout(timeout_duration)
+            answer = Check if Check else None
+            if answer != None:
+                Answer = [answer,op,ca,3]
             mokka_swap = 0
             time.sleep(3)
             return Answer
         else:
             print(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}")
-            return False
-            # print(f"Question:-{qu}\nOptions:- {op}\n Correct answers:- {ca}\n Description:- {des}")      
+            return False     
 
     elif life_line == 0:
         if i == 0:
@@ -138,62 +141,48 @@ for i in range(len(Questions)):
     question(Question, Options, i) 
     
     if mokka_50 == 0 and mokka_poll == 0 and mokka_swap == 0:
-        print("You have 20 seconds to provide input.")
-        Check = get_user_input_with_timeout(timeout_duration)
-        if Check:
-            Answer = Check
-        else:
-            Answer = 0
+        print(f"\nYou have {timeout_duration} seconds to provide input.")
     else:
         print("5) Life-line Or Leave the game!!")
-        print("You have 20 seconds to provide input.")
-        Check = get_user_input_with_timeout(timeout_duration)
-        if Check:
-            Answer = Check
-        else:
-            Answer = 0
+        print(f"\nYou have {timeout_duration} seconds to provide input.")
 
-    if Answer == 5:
-        
-        if counter_for_ll == 1:
-            Answer_life = life_line(value)
-            if Answer_life == False:
-                counter_for_ll += 1
+    Check = get_user_input_with_timeout(timeout_duration)
+    Answer = Check if Check else 0
 
-        while counter_for_ll > 1:
-            os.system('cls')
-            Answer_life = life_line(value)
-            if Answer_life != False:
-                break
+
+    if mokka_50 == 1 or mokka_poll == 1 or mokka_swap == 1:
+        if Answer == 5:
             
-        if Answer_life[len(Answer_life) - 1] == 1:
-            if len(Answer_life) == 4:
-                    Options = Answer_life[2]
-                    Answer = Answer_life[1]
-            else:
+            if counter_for_ll == 1:
+                Answer_life = life_line(value)
+                if Answer_life == False:
+                    counter_for_ll += 1
+
+            while counter_for_ll > 1:
+                os.system('cls')
+                Answer_life = life_line(value)
+                if Answer_life != False:
+                    break
+                
+            if Answer_life[len(Answer_life) - 1] == 1:
                 Answer = Answer_life[1]
-        elif Answer_life[len(Answer_life) - 1] == 2:
-            if (len(Answer_life) == 5):
-                Options = Answer_life[3]
-                Answer = Answer_life[1] + 1
+                if len(Answer_life) == 4:
+                        Options = Answer_life[2]
+            
+            elif Answer_life[len(Answer_life) - 1] == 2:            
+                Options = Answer_life[3] if len(Answer_life) == 5 else Answer_life[2]
+                Answer = Answer_life[1] + 1 if len(Answer_life) == 5 else Answer_life[1]
+            
+            elif Answer_life[len(Answer_life) - 1] == 3:            
+                if len(Answer_life) == 4:
+                    Options,Answer,Correct_Answer = Answer_life[1],Answer_life[0],Answer_life[2] 
+            
             else:
-                Options = Answer_life[2]
-                Answer = Answer_life[1]
-        elif Answer_life[len(Answer_life) - 1] == 3:
-            if len(Answer_life) == 4:
-                Options = Answer_life[1]
-                Answer = Answer_life[0]
-                Correct_Answer = Answer_life[2]
-        else:
-            Answer = 0
+                Answer = 0
 
     if Answer == 0:
-        if i == 0:
-            money = 0
-            break
-        else:
-            money = Money_Prices[i - 1]
-            break
+        money = 0 if i == 0 else Money_Prices[i - 1]
+        break
     else:
         if Correct_Answer in Options[Answer - 1]:
             print(f'\n{Colors.green}Aap Jeet Chuke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')
@@ -214,9 +203,12 @@ for i in range(len(Questions)):
 
 # Display the total earnings and a thank you message
 print(f'\n Aap apne saath {Colors.blue}{money}{Colors.reset} Rupay Lekar Ja Rahe Hai!!')
+
 end_time = time.time()
 total_time = end_time - start_time
-print("\n\nTotal:- ",total_time)
-user_data(money,total_time)
-print(f'\n {Colors.pink}DHANYAWAAD HUMARA KHEL KHELNE KE LIYE{Colors.reset}')
+user_name = input("Enter your username:- ")
+
+user_data(user_name,money,total_time)
+
+print(f'\n {Colors.pink}DHANYAWAAD {user_name} HUMARA KHEL KHELNE KE LIYE{Colors.reset}')
 print("\n\n")

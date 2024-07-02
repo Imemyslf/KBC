@@ -29,14 +29,10 @@ def ran_50_50(Question,Options,Correct_Answer,i):
     question(Question,Options,i)
     
     timeout_duration = 20
-    # print("You have 20 seconds to provide input.")
-    # Check = get_user_input_with_timeout(timeout_duration)
-    Answer = int(input("Enter the answer:- "))
-    Check = Answer
-    # if Check:
-    #     Answer = Check
-    # else:
-    #     Answer = 0
+    print("You have 20 seconds to provide input.")
+    Check = get_user_input_with_timeout(timeout_duration)
+    # Answer = int(input("Enter the answer:- "))
+    Answer = Check if Check else None
     answer = [Check,Answer,Options]
     return answer
 
@@ -63,7 +59,7 @@ def poll(Question,Options,Correct_Answer,i):
     # Randomly Selecting any 1 option from The Options list
     random_option = random.sample(range(len(Options)), 1)
     i_rand = random_option[0] # assigning the index value of the randomly selected option
-    print(i_rand)
+    # print(i_rand)
     
     # Assigning the string of randomly selected option to i_rand_remove
     for i in range(len(Questions)):
@@ -84,7 +80,7 @@ def poll(Question,Options,Correct_Answer,i):
     choice.insert(1,choice_1_answer)
     
     # Genrating a random number for third option in the choice list 
-    choice_3 = random.randint(0,10)
+    choice_3 = random.randint(8,15)
     #Appending the percentage generated for the third option at index 2
     choice.insert(2,choice_3)
     
@@ -115,6 +111,7 @@ def poll(Question,Options,Correct_Answer,i):
         remaining_spaces= (large - len(opt))
         Options1.append(remaining_spaces)
     
+    print(f"{Question}\n\n")
     # Displaying Poll
     for i in range (len(choice)):
         cho = choice[i]
@@ -146,7 +143,7 @@ def poll(Question,Options,Correct_Answer,i):
     
     final_answer = Options[inti]
     print(f"\n Audience vote:- {final_answer}")
-    poll_answer= input(f"\n Do you want to continue with the poll?(Y?N){space*2}")
+    poll_answer = input(f"\n Do you want to continue with the poll?(Y?N){space*2}")
     if (poll_answer.upper() == "Y" or poll_answer.upper() == "YES"):
         final_answer = inti
         fa = [1,final_answer,Options[final_answer]]

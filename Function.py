@@ -39,7 +39,7 @@ def mon(i):
         print(f"\n Levels Cleared = {i} \t Prize Money = {Colors.green}{Money_Prices[i -1]}{Colors.reset}\n")
 
 #User info function 
-def user_data(money,to_ti):
+def user_data(user_name,money,to_ti):
     def get_player_info(filepath):
         try:
             with open(filepath, 'r') as f:
@@ -67,15 +67,11 @@ def user_data(money,to_ti):
         player.append(new_player)
         save_player_info(filepath,player)
     
-    user_name = input("Enter your User Name:- ")
-    points = money
-    total_time = to_ti / 60
-    filepath = 'Player_info.json'
+    # total_time = to_ti / 60
+    # filepath = 'Player_info.json'
     
-    add_player_info(filepath,user_name,points,total_time)
+    add_player_info('Player_info.json',user_name,money,to_ti/60)
 
-
-# User input and Timer function
 def get_user_input_with_timeout(timeout):
     stop_event = threading.Event()
     user_input = None
@@ -83,24 +79,24 @@ def get_user_input_with_timeout(timeout):
     def input_thread():
         nonlocal user_input
         try:
-            input_value = input()
+            input_value = input("Enter your choice: ")
             if input_value.strip():  # Check if input is not an empty string
                 user_input = int(input_value)
             stop_event.set()  # Stop the countdown thread when input is received or invalid input is handled
         except ValueError:
             print("Invalid input. Please enter a valid integer.")
-            stop_event.set()
+            stop_event.set()  # Stop the countdown thread when invalid input is handled
         except Exception as e:
             print(f"Exception in input_thread: {e}")
-            stop_event.set()
+            stop_event.set()  # Stop the countdown thread when any other exception occurs
 
     def countdown_thread():
-        print("\n")
         for remaining in range(timeout, 0, -1):
             if stop_event.is_set():
                 break  # Exit the loop if stop_event is set
-            print(f"\rTime remaining: {remaining} seconds \t Enter your Choice:- ", end="")
+            print(f"\rTime remaining: {remaining} seconds{space*2}Enter your Choice:- ", end="")
             time.sleep(1)
+        stop_event.set()  # Ensure the countdown thread stops
 
     stop_event.clear()  # Clear the event before starting new threads
 
@@ -115,7 +111,8 @@ def get_user_input_with_timeout(timeout):
     input_thread_obj.join(timeout)
 
     if input_thread_obj.is_alive():
-        print("\nTimeout! You didn't provide input within the specified time.")
+        print("\nTimeout! You didn't provide input within the specified time.\nPress enter to continue")
+        input_thread_obj.join()  # Ensure input_thread stops
 
     stop_event.set()  # Ensure the countdown thread stops
 
