@@ -3,7 +3,8 @@ import re
 import os
 import random
 import Colors
-from lifeline import ran_50_50, poll, swap, intro, mon, question ,get_user_input_with_timeout,user_data
+from Function import intro, mon, question ,get_user_input_with_timeout,user_data
+from lifeline import ran_50_50, poll, swap 
 from KBC_Data import Questions, Money_Prices
 
 money = 0
@@ -62,17 +63,14 @@ def life_line(value=0):
         if mokka_poll == 1:
             poll_answer = poll(Question, Options, Correct_Answer, i)
             if poll_answer[0] == 1:
-                poll_answer.append(Options)
-                poll_answer.append(2)
+                poll_answer.extend([Options,2])
             else:
                 poll_answer[0] = 0
                 os.system('cls')
                 mon(i)
                 question(Question, Options, i)
                 Correct_Answer_poll = int(input("Enter your answer: "))
-                poll_answer.append(Correct_Answer_poll)
-                poll_answer.append(Options)
-                poll_answer.append(2)
+                poll_answer.extend([Correct_Answer_poll, Options, 2])
             mokka_poll = 0
             time.sleep(3)
             return poll_answer
@@ -88,13 +86,8 @@ def life_line(value=0):
             mon(i)
             question(qu, op, i)
             answer = int(input("Enter your answer: "))
-            Answer = []
-            Answer.append(answer)
-            Answer.append(op)
-            Answer.append(ca)
-            Answer.append(3)
+            Answer = [answer,op,ca,3]
             mokka_swap = 0
-            time.sleep(3)
             time.sleep(3)
             return Answer
         else:
@@ -155,11 +148,9 @@ for i in range(len(Questions)):
         print("5) Life-line Or Leave the game!!")
         print("You have 20 seconds to provide input.")
         Check = get_user_input_with_timeout(timeout_duration)
-        print("\n\nCheck:- ",Check)
         if Check:
             Answer = Check
         else:
-            print(f"{Check}")
             Answer = 0
 
     if Answer == 5:

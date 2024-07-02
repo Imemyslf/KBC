@@ -1,119 +1,8 @@
 import random
 import Colors
-import threading
 import os
-import time
-import json
-from KBC_Data import Questions,Money_Prices,Player
-
-
-space = " "
-
-def user_data(money,to_ti):
-    def get_player_info(filepath):
-        try:
-            with open(filepath, 'r') as f:
-                data = json.load(f)
-                return data.get('player',[])
-            
-        except FileNotFoundError:
-            return []
-    
-    def save_player_info(filepath,player):
-        with open(filepath, 'w') as f:
-            json.dump({'player': player},f,indent=3)
-                        
-    def add_player_info(filepath,username,points,to_ti):
-        player = get_player_info(filepath)
-        
-        to_ti = f"{to_ti:.3f} mins"
-        
-        new_player = {
-            'Username': username,
-            'Points': points,
-            'Total Time': to_ti
-        }
-        
-        player.append(new_player)
-        save_player_info(filepath,player)
-    
-    user_name = input("Enter your User Name:- ")
-    points = money
-    total_time = to_ti / 60
-    filepath = 'Player_info.json'
-    
-    add_player_info(filepath,user_name,points,total_time)
-
-
-# Introduction and Rules
-def intro():
-    print(f"\n{Colors.cyan} Rules:-{Colors.reset}")
-    print(f"\n 1. There are total{Colors.blue} 15 {Colors.reset} question in Kon Banega Crorepati")
-    print(f"\n 2. Price Money(aka Points System) are from {Colors.green}1000 - 7000000{Colors.reset}")
-    print(f"\n 3. You will have Life Line\n {space * 3}a. 50-50\n {space * 3}b. Poll")
-    print(f"\n 4. You can leave the game whenever you want{Colors.red} *Just Press 0 when the option pop's up to you!! *{Colors.reset}")
-    print("\n 5. Money Price(aka Points System) rule")
-    print(f"\n   a. If you have correctly answered Questions till 5 then your base money will be '10000' \n {space * 5}Else your base money will be '0' if you get any one Question wrong between 1 to 5. ")
-    print(f"\n   b. If you have correctly answered Questions till 10 then your base money will be '320000' \n {space * 5}Else your base money will be '10000' if you get any one Question wrong between 6 to 10. ")
-    print(f"\n   c. If you have correctly answered Questions till 14 then your base money will be '5000000' \n {space * 5}Else your base money will be '320000' if you get any one Question wrong between 11 to 14. ")
-    print(f"\n   d. The FInal Question will have '7000000' Price Money. It's Totally On The Player If They Want To Attempt The Final Round Or Not \n {space * 5}Note:- If the Answer Given Is Wrong Then The Price Money Will Drop To '320000'")
-    response = input(f"\n{space * 3}Press enter to continue{space * 2}")
-    
-    os.system('cls')
-    
-def question(Question,Options,i):
-    print(f'Aapka {i+1} Sawal Hai {Money_Prices[i]} Rupay Ke Liye:- \n')
-    print(Question)
-    for j in range(len(Options)):
-        print(f'{j+1}) {Options[j]}')
-    pass   
-
-
-stop_event = threading.Event()
-def get_user_input_with_timeout(timeout):
-    user_input = None
-
-    def input_thread():
-        nonlocal user_input
-        try:
-            input_value = input()
-            if input_value.strip():  # Check if input is not an empty string
-                user_input = int(input_value)
-            stop_event.set()  # Stop the countdown thread when input is received or invalid input is handled
-        except ValueError:
-            print("Invalid input. Please enter a valid integer.")
-            stop_event.set()
-        except Exception as e:
-            print(f"Exception in input_thread: {e}")
-            stop_event.set()
-
-    def countdown_thread():
-        print("\n")
-        for remaining in range(timeout, 0, -1):
-            if stop_event.is_set():
-                break  # Exit the loop if stop_event is set
-            print(f"\rTime remaining: {remaining} seconds \t Enter your Choice:- ", end="")
-            time.sleep(1)
-
-    stop_event.clear()  # Clear the event before starting new threads
-
-    input_thread_obj = threading.Thread(target=input_thread)
-    input_thread_obj.daemon = True
-    input_thread_obj.start()
-
-    countdown_thread_obj = threading.Thread(target=countdown_thread)
-    countdown_thread_obj.daemon = True
-    countdown_thread_obj.start()
-
-    input_thread_obj.join(timeout)
-
-    if input_thread_obj.is_alive():
-        print("\nTimeout! You didn't provide input within the specified time.")
-
-    stop_event.set()  # Ensure the countdown thread stops
-
-    return user_input
-
+from Function import mon,question,get_user_input_with_timeout
+from KBC_Data import Questions
 
 #Life_line_1
 def ran_50_50(Question,Options,Correct_Answer,i):
@@ -126,7 +15,7 @@ def ran_50_50(Question,Options,Correct_Answer,i):
     #Selecting any two random options from the new Options list.
     indices_to_delete = random.sample(range(len(Options)), 2)
 
-        # Deleting the two randome options that were choosen from the above list
+    # Deleting the two randome options that were choosen from the above list
     for index in range(len(indices_to_delete)):
         del Options[index]
 
@@ -140,13 +29,14 @@ def ran_50_50(Question,Options,Correct_Answer,i):
     question(Question,Options,i)
     
     timeout_duration = 20
-    print("You have 20 seconds to provide input.")
-    Check = get_user_input_with_timeout(timeout_duration)
-    
-    if Check:
-        Answer = Check
-    else:
-        Answer = 0
+    # print("You have 20 seconds to provide input.")
+    # Check = get_user_input_with_timeout(timeout_duration)
+    Answer = int(input("Enter the answer:- "))
+    Check = Answer
+    # if Check:
+    #     Answer = Check
+    # else:
+    #     Answer = 0
     answer = [Check,Answer,Options]
     return answer
 
@@ -165,7 +55,7 @@ def poll(Question,Options,Correct_Answer,i):
     choice_1_answer = random.randint(33,38)
     
     #Choosing Percentage for the random options
-    choice_0 = random.randint(20,35)
+    choice_0 = random.randint(30,35)
     
     #removal of the correct answer from the Options List
     Options.remove(answer)
@@ -194,7 +84,7 @@ def poll(Question,Options,Correct_Answer,i):
     choice.insert(1,choice_1_answer)
     
     # Genrating a random number for third option in the choice list 
-    choice_3 = random.randint(10,20)
+    choice_3 = random.randint(0,10)
     #Appending the percentage generated for the third option at index 2
     choice.insert(2,choice_3)
     
@@ -264,15 +154,6 @@ def poll(Question,Options,Correct_Answer,i):
     else:
         fa = [0]
         return fa
-
-
-
-def mon(i):
-    print(" Current Status of Player:- ",end= " ")
-    if (i == 0):
-        print(f"\n Levels Cleared = {i} \t Prize Money = {Colors.green}0{Colors.reset}\n")
-    else:
-        print(f"\n Levels Cleared = {i} \t Prize Money = {Colors.green}{Money_Prices[i -1]}{Colors.reset}\n")
 
 
 
