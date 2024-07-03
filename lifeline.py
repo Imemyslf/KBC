@@ -29,9 +29,8 @@ def ran_50_50(Question,Options,Correct_Answer,i):
     question(Question,Options,i)
     
     timeout_duration = 20
-    print("You have 20 seconds to provide input.")
+    print(f"You have {timeout_duration} seconds to provide input.")
     Check = get_user_input_with_timeout(timeout_duration)
-    # Answer = int(input("Enter the answer:- "))
     Answer = Check if Check else None
     answer = [Check,Answer,Options]
     return answer
@@ -153,7 +152,7 @@ def poll(Question,Options,Correct_Answer,i):
         return fa
 
 
-
+#Life_line 3
 def swap(i,value):
 
         # Create two separate arrays using slicing
@@ -167,9 +166,7 @@ def swap(i,value):
             
         
 if __name__ == "__main__":
-    # intro()
     # ranopt()
     # poll()
-    # mon(5)
     # swap()
     pass

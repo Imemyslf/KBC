@@ -12,7 +12,7 @@ mokka_50 = 1
 mokka_poll = 1
 mokka_swap = 1
 counter_for_ll = 1
-timeout_duration = 20
+timeout_duration = 40
 
 start_time = time.time()
 def life_line(value=0):
@@ -69,8 +69,14 @@ def life_line(value=0):
                 os.system('cls')
                 mon(i)
                 question(Question, Options, i)
-                Correct_Answer_poll = int(input("Enter your answer: "))
-                poll_answer.extend([Correct_Answer_poll, Options, 2])
+                timeout_duration = 15
+                print(f"You have {timeout_duration} seconds to provide input.")
+                Check = get_user_input_with_timeout(timeout_duration)
+                Correct_Answer_poll = Check if Check else None
+                
+                if Correct_Answer_poll != None:
+                    poll_answer.extend([Correct_Answer_poll, Options, 2])
+                    
             mokka_poll = 0
             time.sleep(3)
             return poll_answer
@@ -85,8 +91,8 @@ def life_line(value=0):
             os.system('cls')
             mon(i)
             question(qu, op, i)
-            timeout_duration = 20
-            print("You have 20 seconds to provide input.")
+            timeout_duration = 15
+            print(f"You have {timeout_duration} seconds to provide input.")
             Check = get_user_input_with_timeout(timeout_duration)
             answer = Check if Check else None
             if answer != None:
@@ -126,11 +132,11 @@ for i in range(len(Questions)):
         print(f"Dhanrashi apke pass hai {Money_Prices[i]}")
         print(f"{Colors.yellow}1. Jari rakhenge \n2. Nahi \n{Colors.reset}")
         choice = int(input("Enter your choice: "))
-        print(f"{Colors.yellow}1. Jari rakhenge \n2. Nahi \n{Colors.reset}")
-        choice = int(input("Enter your choice: "))
         os.system('cls')
         if choice == 2: # Game Over!!
             break
+        else:
+            timeout_duration = timeout_duration - 10 if i != 15 else  200
 
     value = random.randint(0, 4)
     Question, Options, Correct_Answer, Description = Questions[i][value].values()
@@ -149,36 +155,33 @@ for i in range(len(Questions)):
     Check = get_user_input_with_timeout(timeout_duration)
     Answer = Check if Check else 0
 
+    if Answer == 5:
+        if counter_for_ll == 1:
+            Answer_life = life_line(value)
+            if Answer_life == False:
+                counter_for_ll += 1
 
-    if mokka_50 == 1 or mokka_poll == 1 or mokka_swap == 1:
-        if Answer == 5:
+        while counter_for_ll > 1:
+            os.system('cls')
+            Answer_life = life_line(value)
+            if Answer_life != False:
+                break
             
-            if counter_for_ll == 1:
-                Answer_life = life_line(value)
-                if Answer_life == False:
-                    counter_for_ll += 1
-
-            while counter_for_ll > 1:
-                os.system('cls')
-                Answer_life = life_line(value)
-                if Answer_life != False:
-                    break
-                
-            if Answer_life[len(Answer_life) - 1] == 1:
-                Answer = Answer_life[1]
-                if len(Answer_life) == 4:
-                        Options = Answer_life[2]
-            
-            elif Answer_life[len(Answer_life) - 1] == 2:            
-                Options = Answer_life[3] if len(Answer_life) == 5 else Answer_life[2]
-                Answer = Answer_life[1] + 1 if len(Answer_life) == 5 else Answer_life[1]
-            
-            elif Answer_life[len(Answer_life) - 1] == 3:            
-                if len(Answer_life) == 4:
-                    Options,Answer,Correct_Answer = Answer_life[1],Answer_life[0],Answer_life[2] 
-            
-            else:
-                Answer = 0
+        if Answer_life[len(Answer_life) - 1] == 1:
+            Answer = Answer_life[1]
+            if len(Answer_life) == 4:
+                    Options = Answer_life[2]
+        
+        elif Answer_life[len(Answer_life) - 1] == 2:            
+            Options = Answer_life[3] if len(Answer_life) == 5 else Answer_life[2]
+            Answer = Answer_life[1] + 1 if len(Answer_life) == 5 else Answer_life[1]
+        
+        elif Answer_life[len(Answer_life) - 1] == 3:            
+            if len(Answer_life) == 4:
+                Options,Answer,Correct_Answer = Answer_life[1],Answer_life[0],Answer_life[2] 
+        
+        else:
+            Answer = 0
 
     if Answer == 0:
         money = 0 if i == 0 else Money_Prices[i - 1]

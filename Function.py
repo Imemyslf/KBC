@@ -3,7 +3,7 @@ import threading
 import os
 import time
 import json
-from KBC_Data import Questions,Money_Prices,Player
+from KBC_Data import Money_Prices
 
 space = " "
 
@@ -12,13 +12,14 @@ def intro():
     print(f"\n{Colors.cyan} Rules:-{Colors.reset}")
     print(f"\n 1. There are total{Colors.blue} 15 {Colors.reset} question in Kon Banega Crorepati")
     print(f"\n 2. Price Money(aka Points System) are from {Colors.green}1000 - 7000000{Colors.reset}")
-    print(f"\n 3. You will have Life Line\n {space * 3}a. 50-50\n {space * 3}b. Poll")
+    print(f"\n 3. You will have 3 Life Line\n {space * 3}a. 50-50\n {space * 3}b. Poll\n {space * 3}c.Swap")
     print(f"\n 4. You can leave the game whenever you want{Colors.red} *Just Press 0 when the option pop's up to you!! *{Colors.reset}")
     print(f"\n 5. Money Price(aka Points System) rule")
     print(f"\n   a. If you have correctly answered Questions till 5 then your base money will be '10000' \n {space * 5}Else your base money will be '0' if you get any one Question wrong between 1 to 5. ")
     print(f"\n   b. If you have correctly answered Questions till 10 then your base money will be '320000' \n {space * 5}Else your base money will be '10000' if you get any one Question wrong between 6 to 10. ")
     print(f"\n   c. If you have correctly answered Questions till 14 then your base money will be '5000000' \n {space * 5}Else your base money will be '320000' if you get any one Question wrong between 11 to 14. ")
-    print(f"\n   d. The FInal Question will have '7000000' Price Money. It's Totally On The Player If They Want To Attempt The Final Round Or Not \n {space * 5}Note:- If the Answer Given Is Wrong Then The Price Money Will Drop To '320000'")
+    print(f"\n   d. The Final Question will have '7000000' Price Money. It's Totally On The Player If They Want To Attempt The Final Round Or Not \n {space * 5}Note:- If the Answer Given Is Wrong Then The Price Money Will Drop To '320000'")
+    print(f"\n\n  {Colors.red}IF YOU HAVE USED ALL THE LIFELINES AND PRESSED THE 5TH OPTION AGAIN THEN BY DEFAULT YOU HAVE TO QUIT THE GAME BY PRESSING '0`{Colors.reset}")
     response = input(f"\n{space * 3}Press enter to continue{space * 2}")
     
     os.system('cls')
@@ -67,9 +68,6 @@ def user_data(user_name,money,to_ti):
         player.append(new_player)
         save_player_info(filepath,player)
     
-    # total_time = to_ti / 60
-    # filepath = 'Player_info.json'
-    
     add_player_info('Player_info.json',user_name,money,to_ti/60)
 
 def get_user_input_with_timeout(timeout):
@@ -117,3 +115,7 @@ def get_user_input_with_timeout(timeout):
     stop_event.set()  # Ensure the countdown thread stops
 
     return user_input
+
+if __name__ == "__main__":
+    # intro()
+    pass
