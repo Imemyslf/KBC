@@ -19,9 +19,10 @@ def ran_50_50(Question,Options,Correct_Answer,i):
     for index in range(len(indices_to_delete)):
         del Options[index]
 
+    index_for_answer = random.randint(0,1)
+    
     #Adding the answer Back into the Options List.
-    Options.insert(0,answer)
-
+    Options.insert(index_for_answer,answer)
     os.system('cls') # Clears the terminal screen
     
     # Re-appearing the question with 50-50 life_life.

@@ -14,7 +14,7 @@ mokka_swap = 1
 counter_for_ll = 1
 timeout_duration = 40
 
-start_time = time.time()
+
 def life_line(value=0):
     global leave
     leave = 1
@@ -56,7 +56,7 @@ def life_line(value=0):
             mokka_50 = 0
             return Answer
         else:
-            print(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}")
+            input(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}\nPress enter to continue")
             return False
     
     elif life_line == 2:
@@ -81,7 +81,7 @@ def life_line(value=0):
             time.sleep(3)
             return poll_answer
         else:
-            print(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}")
+            input(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}\nPress enter to continue")
             return False
     
     elif life_line == 3:
@@ -101,7 +101,7 @@ def life_line(value=0):
             time.sleep(3)
             return Answer
         else:
-            print(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}")
+            input(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}\nPress enter to continue")
             return False     
 
     elif life_line == 0:
@@ -118,10 +118,13 @@ def life_line(value=0):
 
 
 # Start of the game....
+os.system('cls')
+user_name = input("\nEnter your username:- ")
 os.system('cls')  # Clears the terminal screen
 # Display a welcome message
 print(f'\n\n{Colors.blue}WELCOME TO \'KON BANEGA CROREPATTI\'\n{Colors.reset}')
 intro()
+start_time = time.time()
 random.seed(time.time())
 
 for i in range(len(Questions)):
@@ -129,7 +132,7 @@ for i in range(len(Questions)):
     #Prompt the user to contiue playing.
     if i == 5 or i == 10 or i == 15:
         print("\nKya aap khel jari rakhenge?")
-        print(f"Dhanrashi apke pass hai {Money_Prices[i]}")
+        print(f"\nDhanrashi apke pass hai {Colors.green}{Money_Prices[i - 1]}{Colors.reset}")
         print(f"{Colors.yellow}1. Jari rakhenge \n2. Nahi \n{Colors.reset}")
         choice = int(input("Enter your choice: "))
         os.system('cls')
@@ -189,8 +192,8 @@ for i in range(len(Questions)):
     else:
         if Correct_Answer in Options[Answer - 1]:
             print(f'\n{Colors.green}Aap Jeet Chuke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')
+            input(f"\nDescription:- {Colors.cyan}{Description}{Colors.reset}\nPress any key to continue")
             money = Money_Prices[i]
-            time.sleep(3)
             os.system('cls')
         else:
             print(f'\n{Colors.red}Galat Jawaab! Aapka khel yahi samapt hota hai!!\n{Colors.reset}')
@@ -209,7 +212,6 @@ print(f'\n Aap apne saath {Colors.blue}{money}{Colors.reset} Rupay Lekar Ja Rahe
 
 end_time = time.time()
 total_time = end_time - start_time
-user_name = input("Enter your username:- ")
 
 user_data(user_name,money,total_time)
 

@@ -92,7 +92,7 @@ def get_user_input_with_timeout(timeout):
         for remaining in range(timeout, 0, -1):
             if stop_event.is_set():
                 break  # Exit the loop if stop_event is set
-            print(f"\rTime remaining: {remaining} seconds{space*2}Enter your Choice:- ", end="")
+            print(f"\rTime remaining:{Colors.red} {remaining} {Colors.reset}seconds{space*2}Enter your Choice:- ", end="")
             time.sleep(1)
         stop_event.set()  # Ensure the countdown thread stops
 
