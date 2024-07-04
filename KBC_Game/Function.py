@@ -19,9 +19,9 @@ def play():
             with open(filepath,'w') as f:
                 json.dump({'player': player},f)
                    
-        data = open_json_info("Player_info.json")
+        data = open_json_info("_internal\Player_info.json")
         data['player'] = []
-        save_player_progress("Player_info.json",data['player'])
+        save_player_progress("_internal\Player_info.json",data['player'])
     
     def display_player_info():
         def get_player_info(filepath):
@@ -29,7 +29,7 @@ def play():
                 data = json.load(f)
                 return data
             
-        data = get_player_info("Player_info.json")
+        data = get_player_info("_internal\Player_info.json")
         headers = ["UserName", "Points", "Total Time"]
 
         # Display as table
@@ -132,7 +132,7 @@ def user_data(user_name,money,to_ti):
         player.append(new_player)
         save_player_info(filepath,player)
     
-    add_player_info('Player_info.json',user_name,money,to_ti/60)
+    add_player_info('_internal\Player_info.json',user_name,money,to_ti/60)
 
 #Timer function
 def get_user_input_with_timeout(timeout):

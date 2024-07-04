@@ -216,8 +216,8 @@ def game(user_name):
 
     user_data(user_name, money, total_time)
 
-    print(f'\n {Colors.pink}Thank You {user_name} for playing our game{Colors.reset}')
-    time.sleep(5)
+    print(f'\n {Colors.blue}Thank You {user_name} for playing our game{Colors.reset}')
+    time.sleep(6)
     os.system('exit')
 
 # Start of the game....

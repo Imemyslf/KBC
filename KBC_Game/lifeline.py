@@ -141,7 +141,7 @@ def poll(Question,Options,Correct_Answer,i):
     
     final_answer = Options[inti]
     print(f"\n Audience vote:- {final_answer}")
-    poll_answer = input(f"\n Do you want to continue with the poll?(Y?N){space*2}")
+    poll_answer = input(f"\n Do you want to continue with the poll?\n Enter ({Colors.green}Yes{Colors.reset} or {Colors.red}No{Colors.reset}){space*2}")
     if (poll_answer.upper() == "Y" or poll_answer.upper() == "YES"):
         final_answer = inti
         fa = [1,final_answer,Options[final_answer]]
