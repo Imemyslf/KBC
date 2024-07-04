@@ -40,21 +40,27 @@ cd KBC
 ```
 -  Run the game using Python
 ```bash
-python KBC.py![Relese_1](https://github.com/Imemyslf/KBC/assets/112005565/cd848648-13b9-4a03-a20f-6e9269948f21)
+python KBC.py
 
 ```
 ## OPTION 2:-
 
-- Visit the releases section of this repository.
-  
+- Visit the releases section of this repository.<br>
+  ![Relese_1](https://github.com/Imemyslf/KBC/assets/112005565/cd848648-13b9-4a03-a20f-6e9269948f21)
     
-- Download the latest release zip file.
+- Download the latest release zip file.<br>
+![Relese_2](https://github.com/Imemyslf/KBC/assets/112005565/a9ce492a-6725-4954-8b7d-7a1f1a09ef28)
     
-- Extract the zip file to a directory of your choice.
+- Extract the zip file to a directory of your choice.<br>
+![Relese_3](https://github.com/Imemyslf/KBC/assets/112005565/a862d30b-e02d-4bfe-b7d4-cf17043c9182)
+
     
-- Navigate to the extracted directory and click on KBC.exe application
+- Navigate to the extracted directory and click on KBC.exe application.<br>
+![Relese_4](https://github.com/Imemyslf/KBC/assets/112005565/f14d39c3-2918-47ae-87d5-de107c908986)
+
 
 - Enjoy your Game.
+ets/112005565/d3e72f8a-dd72-4424-8f69-67a0632e738c)
 
 ## Requirements:
 
