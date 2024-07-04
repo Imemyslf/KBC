@@ -230,6 +230,7 @@ def start_game():
         while True:
             user_name = input("\nEnter your username:- ").strip()
             if user_name:
+                
                 break
             else:
                 input("Please enter a valid username\n Press enter to continue")

@@ -18,11 +18,9 @@ def ran_50_50(Question,Options,Correct_Answer,i):
     # Deleting the two randome options that were choosen from the above list
     for index in range(len(indices_to_delete)):
         del Options[index]
-
-    index_for_answer = random.randint(0,1)
     
     #Adding the answer Back into the Options List.
-    Options.insert(index_for_answer,answer)
+    Options.insert(random.randint(0,1),answer)
     os.system('cls') # Clears the terminal screen
     
     # Re-appearing the question with 50-50 life_life.
@@ -30,7 +28,7 @@ def ran_50_50(Question,Options,Correct_Answer,i):
     question(Question,Options,i)
     
     timeout_duration = 20
-    print(f"\nYou have {timeout_duration} seconds to provide input.")
+    print(f"\n\nYou have {timeout_duration} seconds to provide input.")
     Check = get_user_input_with_timeout(timeout_duration)
     Answer = Check if Check else None
     answer = [Check,Answer,Options]
