@@ -123,7 +123,13 @@ player_choice = play()
 
 if player_choice == 1:
     os.system('cls')
-    user_name = input("\nEnter your username:- ")
+    while True:
+        user_name = input("\nEnter your username:- ").strip()
+        if user_name:
+            break
+        else:
+            input("Please enter a valid username\n Press enter to continue")
+            os.system('cls')
     os.system('cls')  # Clears the terminal screen
     intro()
     start_time = time.time()
@@ -223,3 +229,5 @@ if player_choice == 1:
     print("\n\n")
 else:
     print("\n\nThank you")
+    time.sleep(2)
+    os.system('exit')

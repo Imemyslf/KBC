@@ -4,6 +4,7 @@ import os
 import time
 import re
 import json
+from tabulate import tabulate
 from KBC_Data import Money_Prices
 
 space = " "
@@ -22,26 +23,42 @@ def play():
         data = open_json_info("Player_info.json")
         data['player'] = []
         save_player_progress("Player_info.json",data['player'])
-        
+    
+    def display_player_info():
+        def get_player_info(filepath):
+            with open(filepath,'r') as f:
+                data = json.load(f)
+                return data
+            
+        data = get_player_info("Player_info.json")
+        table = [[player['Username'], player['Points'], player['Total Time']] for player in data['player']]
+        headers = ["UserName", "Points", "Total Time"]
+
+        # Display as table
+        print(tabulate(table, headers, tablefmt="grid"))
     
     def get_user_choice():
         while True:    
             print(f'\n\n{Colors.blue}WELCOME TO \'KON BANEGA CROREPATTI\'\n{Colors.reset}')
-            print(f"\n1. Play the game\n2. Reset the Progress\n3. Exit")
+            print(f"\n1. Play the game\n2. Reset the Progress\n3. Display Player info\n0. Exit")
             input_user = input("\nEnter your choice:- ")
             
             if int(input_user) == 2:
                 reset_progress()
                 input("\n Progress reset successfully\n\nPress enter to continue")
+                os.system('cls')
+            elif int(input_user) == 3:
+                display_player_info()
+                input("\n\nPress enter to continue")
                 os.system('cls') 
-            elif re.match(r'^[13]$',input_user):
+            elif re.match(r'^[01]$',input_user):
                 return input_user
             else:
                 input("Sorry, you have selected wrong option.Please try again\nPress enter to continue")
                 os.system('cls')
+    
     user_choice = int(get_user_choice())
-    if user_choice == 1 or user_choice == 3:
-        return user_choice
+    return user_choice if user_choice in [0,1,3] else None
 
 # Introduction and Rules
 def intro():
@@ -153,7 +170,7 @@ def get_user_input_with_timeout(timeout):
     return user_input
 
 if __name__ == "__main__":
-    # intro()
-    e = play()
-    print("\n\ne = ",e)
+    # e = play()
+    # print("\n\ne = ",e)
+    pass
     
