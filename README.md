@@ -64,6 +64,6 @@ ets/112005565/d3e72f8a-dd72-4424-8f69-67a0632e738c)
 
 ## Requirements:
 
-Check the Requirements.txt file
+Python (3.x version)
 
 
