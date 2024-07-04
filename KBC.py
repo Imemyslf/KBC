@@ -3,7 +3,7 @@ import re
 import os
 import random
 import Colors
-from Function import intro, mon, question ,get_user_input_with_timeout,user_data
+from Function import intro, mon, question ,get_user_input_with_timeout,user_data,play
 from lifeline import ran_50_50, poll, swap 
 from KBC_Data import Questions, Money_Prices
 
@@ -96,7 +96,7 @@ def life_line(value=0):
             Check = get_user_input_with_timeout(timeout_duration)
             answer = Check if Check else None
             if answer != None:
-                Answer = [answer,op,ca,3]
+                Answer = [answer,op,ca,des,3]
             mokka_swap = 0
             time.sleep(3)
             return Answer
@@ -119,101 +119,107 @@ def life_line(value=0):
 
 # Start of the game....
 os.system('cls')
-user_name = input("\nEnter your username:- ")
-os.system('cls')  # Clears the terminal screen
-# Display a welcome message
-print(f'\n\n{Colors.blue}WELCOME TO \'KON BANEGA CROREPATTI\'\n{Colors.reset}')
-intro()
-start_time = time.time()
-random.seed(time.time())
+player_choice = play()
 
-for i in range(len(Questions)):
-    # print("Main loop")
-    #Prompt the user to contiue playing.
-    if i == 5 or i == 10 or i == 15:
-        print("\nKya aap khel jari rakhenge?")
-        print(f"\nDhanrashi apke pass hai {Colors.green}{Money_Prices[i - 1]}{Colors.reset}")
-        print(f"{Colors.yellow}1. Jari rakhenge \n2. Nahi \n{Colors.reset}")
-        choice = int(input("Enter your choice: "))
-        os.system('cls')
-        if choice == 2: # Game Over!!
-            break
-        else:
-            timeout_duration = timeout_duration - 10 if i != 15 else  200
+if player_choice == 1:
+    os.system('cls')
+    user_name = input("\nEnter your username:- ")
+    os.system('cls')  # Clears the terminal screen
+    intro()
+    start_time = time.time()
+    random.seed(time.time())
 
-    value = random.randint(0, 4)
-    Question, Options, Correct_Answer, Description = Questions[i][value].values()
-    # Shuffle the answer options to present them in a random order
-    random.shuffle(Options)
-    mon(i)
-    # Display the question and available options
-    question(Question, Options, i) 
-    
-    if mokka_50 == 0 and mokka_poll == 0 and mokka_swap == 0:
-        print(f"\nYou have {timeout_duration} seconds to provide input.")
-    else:
-        print("5) Life-line Or Leave the game!!")
-        print(f"\nYou have {timeout_duration} seconds to provide input.")
-
-    Check = get_user_input_with_timeout(timeout_duration)
-    Answer = Check if Check else 0
-
-    if Answer == 5:
-        if counter_for_ll == 1:
-            Answer_life = life_line(value)
-            if Answer_life == False:
-                counter_for_ll += 1
-
-        while counter_for_ll > 1:
+    for i in range(len(Questions)):
+        # print("Main loop")
+        #Prompt the user to contiue playing.
+        if i == 5 or i == 10 or i == 15:
+            print("\nKya aap khel jari rakhenge?")
+            print(f"\nDhanrashi apke pass hai {Colors.green}{Money_Prices[i - 1]}{Colors.reset}")
+            print(f"{Colors.yellow}1. Jari rakhenge \n2. Nahi \n{Colors.reset}")
+            choice = int(input("Enter your choice: "))
             os.system('cls')
-            Answer_life = life_line(value)
-            if Answer_life != False:
+            if choice == 2: # Game Over!!
                 break
-            
-        if Answer_life[len(Answer_life) - 1] == 1:
-            Answer = Answer_life[1]
-            if len(Answer_life) == 4:
-                    Options = Answer_life[2]
-        
-        elif Answer_life[len(Answer_life) - 1] == 2:            
-            Options = Answer_life[3] if len(Answer_life) == 5 else Answer_life[2]
-            Answer = Answer_life[1] + 1 if len(Answer_life) == 5 else Answer_life[1]
-        
-        elif Answer_life[len(Answer_life) - 1] == 3:            
-            if len(Answer_life) == 4:
-                Options,Answer,Correct_Answer = Answer_life[1],Answer_life[0],Answer_life[2] 
-        
-        else:
-            Answer = 0
-
-    if Answer == 0:
-        money = 0 if i == 0 else Money_Prices[i - 1]
-        break
-    else:
-        if Correct_Answer in Options[Answer - 1]:
-            print(f'\n{Colors.green}Aap Jeet Chuke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')
-            input(f"\nDescription:- {Colors.cyan}{Description}{Colors.reset}\nPress any key to continue")
-            money = Money_Prices[i]
-            os.system('cls')
-        else:
-            print(f'\n{Colors.red}Galat Jawaab! Aapka khel yahi samapt hota hai!!\n{Colors.reset}')
-            if 0 <= i < 5:
-                money = 0
-            elif 5 <= i < 10:
-                money = 10000
-            elif 10 <= i < 15:
-                money = 320000
             else:
-                money = Money_Prices[i]
+                timeout_duration = timeout_duration - 10 if i != 15 else  200
+
+        value = random.randint(0, 4)
+        Question, Options, Correct_Answer, Description = Questions[i][value].values()
+        # Shuffle the answer options to present them in a random order
+        random.shuffle(Options)
+        mon(i)
+        # Display the question and available options
+        question(Question, Options, i) 
+        
+        if mokka_50 == 0 and mokka_poll == 0 and mokka_swap == 0:
+            print(f"\nYou have {timeout_duration} seconds to provide input.")
+        else:
+            print("5) Life-line Or Leave the game!!")
+            print(f"\nYou have {timeout_duration} seconds to provide input.")
+
+        Check = get_user_input_with_timeout(timeout_duration)
+        Answer = Check if Check else 0
+
+        if Answer == 5:
+            if counter_for_ll == 1:
+                Answer_life = life_line(value)
+                if Answer_life == False:
+                    counter_for_ll += 1
+
+            while counter_for_ll > 1:
+                os.system('cls')
+                Answer_life = life_line(value)
+                if Answer_life != False:
+                    break
+                
+            if Answer_life[len(Answer_life) - 1] == 1:
+                Answer = Answer_life[1]
+                if len(Answer_life) == 4:
+                        Options = Answer_life[2]
+            
+            elif Answer_life[len(Answer_life) - 1] == 2:            
+                Options = Answer_life[3] if len(Answer_life) == 5 else Answer_life[2]
+                Answer = Answer_life[1] + 1 if len(Answer_life) == 5 else Answer_life[1]
+            
+            elif Answer_life[len(Answer_life) - 1] == 3:            
+                if len(Answer_life) == 5:
+                    Options,Answer,Correct_Answer,Description = Answer_life[1],Answer_life[0],Answer_life[2],Answer_life[3]
+                    input(f"Options:- {Options} \n Answer: {Answer} \n Correct_Answer;- {Correct_Answer} \n Description: {Description} \n Length:- {len(Answer_life)} \n") 
+            
+            else:
+                Answer = 0
+
+        if Answer == 0:
+            money = 0 if i == 0 else Money_Prices[i - 1]
             break
+        else:
+            if Correct_Answer in Options[Answer - 1]:
+                print(f'\n{Colors.green}Aap Jeet Chuke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')
+                input(f"\nDescription:- {Colors.cyan}{Description}{Colors.reset}\nPress any key to continue")
+                money = Money_Prices[i]
+                os.system('cls')
+            else:
+                print(f'\n{Colors.red}Galat Jawaab! Aapka khel yahi samapt hota hai!!\n{Colors.reset}')
+                print(f"\nCorrect Answer:- {Correct_Answer}")
+                if 0 <= i < 5:
+                    money = 0
+                elif 5 <= i < 10:
+                    money = 10000
+                elif 10 <= i < 15:
+                    money = 320000
+                else:
+                    money = Money_Prices[i]
+                break
 
-# Display the total earnings and a thank you message
-print(f'\n Aap apne saath {Colors.blue}{money}{Colors.reset} Rupay Lekar Ja Rahe Hai!!')
+    # Display the total earnings and a thank you message
+    print(f'\n Aap apne saath {Colors.blue}{money}{Colors.reset} Rupay Lekar Ja Rahe Hai!!')
 
-end_time = time.time()
-total_time = end_time - start_time
+    end_time = time.time()
+    total_time = end_time - start_time
 
-user_data(user_name,money,total_time)
+    user_data(user_name,money,total_time)
 
-print(f'\n {Colors.pink}DHANYAWAAD {user_name} HUMARA KHEL KHELNE KE LIYE{Colors.reset}')
-print("\n\n")
+    print(f'\n {Colors.pink}DHANYAWAAD {user_name} HUMARA KHEL KHELNE KE LIYE{Colors.reset}')
+    print("\n\n")
+else:
+    print("\n\nThank you")

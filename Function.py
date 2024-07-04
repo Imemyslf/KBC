@@ -2,10 +2,46 @@ import Colors
 import threading
 import os
 import time
+import re
 import json
 from KBC_Data import Money_Prices
 
 space = " "
+
+def play():
+    def reset_progress():
+        def open_json_info(filepath):
+            with open(filepath,'r') as f:
+                data = json.load(f)
+                return data
+        
+        def save_player_progress(filepath,player):
+            with open(filepath,'w') as f:
+                json.dump({'player': player},f)
+                   
+        data = open_json_info("Player_info.json")
+        data['player'] = []
+        save_player_progress("Player_info.json",data['player'])
+        
+    
+    def get_user_choice():
+        while True:    
+            print(f'\n\n{Colors.blue}WELCOME TO \'KON BANEGA CROREPATTI\'\n{Colors.reset}')
+            print(f"\n1. Play the game\n2. Reset the Progress\n3. Exit")
+            input_user = input("\nEnter your choice:- ")
+            
+            if int(input_user) == 2:
+                reset_progress()
+                input("\n Progress reset successfully\n\nPress enter to continue")
+                os.system('cls') 
+            elif re.match(r'^[13]$',input_user):
+                return input_user
+            else:
+                input("Sorry, you have selected wrong option.Please try again\nPress enter to continue")
+                os.system('cls')
+    user_choice = int(get_user_choice())
+    if user_choice == 1 or user_choice == 3:
+        return user_choice
 
 # Introduction and Rules
 def intro():
@@ -118,4 +154,6 @@ def get_user_input_with_timeout(timeout):
 
 if __name__ == "__main__":
     # intro()
-    pass
+    e = play()
+    print("\n\ne = ",e)
+    
