@@ -4,7 +4,6 @@ import os
 import time
 import re
 import json
-from tabulate import tabulate
 from KBC_Data import Money_Prices
 
 space = " "
@@ -31,11 +30,18 @@ def play():
                 return data
             
         data = get_player_info("Player_info.json")
-        table = [[player['Username'], player['Points'], player['Total Time']] for player in data['player']]
         headers = ["UserName", "Points", "Total Time"]
 
         # Display as table
-        print(tabulate(table, headers, tablefmt="grid"))
+        print("=" * (len(headers[0]) + len(headers[1]) + len(headers[2]) + 15))  # Adjusted length for formatting
+        print(f"| {headers[0]:^10} | {headers[1]:^10} | {headers[2]:^10} |")  # Center-aligned headers
+        print("=" * (len(headers[0]) + len(headers[1]) + len(headers[2]) + 15))  # Adjusted length for formatting
+
+        for player in data['player']:
+            print(f"| {player['Username']:^10} | {player['Points']:^10} | {player['Total Time']:^10} |")
+
+        print("=" * (len(headers[0]) + len(headers[1]) + len(headers[2]) + 15))  # Adjusted length for formatting
+        
     
     def get_user_choice():
         while True:    
@@ -170,7 +176,7 @@ def get_user_input_with_timeout(timeout):
     return user_input
 
 if __name__ == "__main__":
-    # e = play()
-    # print("\n\ne = ",e)
+    e = play()
+    print("\n\ne = ",e)
     pass
     

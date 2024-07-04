@@ -1,1 +1,39 @@
-{"player": []}
+{
+   "player": [
+      {
+         "Username": "0",
+         "Points": 0,
+         "Total Time": "0.364 mins"
+      },
+      {
+         "Username": "0",
+         "Points": 5000,
+         "Total Time": "0.534 mins"
+      },
+      {
+         "Username": "Ishan",
+         "Points": 10000,
+         "Total Time": "1.023 mins"
+      },
+      {
+         "Username": "Kishan",
+         "Points": 0,
+         "Total Time": "0.641 mins"
+      },
+      {
+         "Username": "Kishan",
+         "Points": 0,
+         "Total Time": "0.739 mins"
+      },
+      {
+         "Username": "Kishan",
+         "Points": 0,
+         "Total Time": "0.727 mins"
+      },
+      {
+         "Username": "0",
+         "Points": 10000,
+         "Total Time": "0.708 mins"
+      }
+   ]
+}

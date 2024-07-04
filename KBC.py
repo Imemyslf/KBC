@@ -14,9 +14,9 @@ mokka_swap = 1
 counter_for_ll = 1
 timeout_duration = 40
 
-
-def life_line(value=0):
-    global leave
+#lifeline optons
+def life_line(Question,Options,Correct_Answer,Description,i,value=0):
+    global leave, money, mokka_50, mokka_poll, mokka_swap
     leave = 1
     global money
     # Initialize a variable mokka_50 to keep track of the player's 50-50 life_line.
@@ -117,19 +117,9 @@ def life_line(value=0):
         return False
 
 
-# Start of the game....
-os.system('cls')
-player_choice = play()
-
-if player_choice == 1:
-    os.system('cls')
-    while True:
-        user_name = input("\nEnter your username:- ").strip()
-        if user_name:
-            break
-        else:
-            input("Please enter a valid username\n Press enter to continue")
-            os.system('cls')
+#Game logic
+def game(user_name):
+    global money, mokka_50, mokka_poll, mokka_swap, timeout_duration, counter_for_ll
     os.system('cls')  # Clears the terminal screen
     intro()
     start_time = time.time()
@@ -148,6 +138,7 @@ if player_choice == 1:
                 break
             else:
                 timeout_duration = timeout_duration - 10 if i != 15 else  200
+                print(f"\n{Colors.green}You will have {Colors.yellow}{timeout_duration}{Colors.reset} seconds to answer your question.{Colors.reset}")
 
         value = random.randint(0, 4)
         Question, Options, Correct_Answer, Description = Questions[i][value].values()
@@ -168,13 +159,13 @@ if player_choice == 1:
 
         if Answer == 5:
             if counter_for_ll == 1:
-                Answer_life = life_line(value)
+                Answer_life = life_line(Question,Options,Correct_Answer,Description,i,value)
                 if Answer_life == False:
                     counter_for_ll += 1
 
             while counter_for_ll > 1:
                 os.system('cls')
-                Answer_life = life_line(value)
+                Answer_life = life_line(Question,Options,Correct_Answer,Description,i,value)
                 if Answer_life != False:
                     break
                 
@@ -190,7 +181,6 @@ if player_choice == 1:
             elif Answer_life[len(Answer_life) - 1] == 3:            
                 if len(Answer_life) == 5:
                     Options,Answer,Correct_Answer,Description = Answer_life[1],Answer_life[0],Answer_life[2],Answer_life[3]
-                    input(f"Options:- {Options} \n Answer: {Answer} \n Correct_Answer;- {Correct_Answer} \n Description: {Description} \n Length:- {len(Answer_life)} \n") 
             
             else:
                 Answer = 0
@@ -200,6 +190,7 @@ if player_choice == 1:
             break
         else:
             if Correct_Answer in Options[Answer - 1]:
+                time.sleep(3)
                 print(f'\n{Colors.green}Aap Jeet Chuke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')
                 input(f"\nDescription:- {Colors.cyan}{Description}{Colors.reset}\nPress any key to continue")
                 money = Money_Prices[i]
@@ -226,8 +217,30 @@ if player_choice == 1:
     user_data(user_name,money,total_time)
 
     print(f'\n {Colors.pink}DHANYAWAAD {user_name} HUMARA KHEL KHELNE KE LIYE{Colors.reset}')
-    print("\n\n")
-else:
-    print("\n\nThank you")
-    time.sleep(2)
+    time.sleep(5)
     os.system('exit')
+
+# Start of the game....
+def start_game():
+    os.system('cls')
+    player_choice = play()
+
+    if player_choice == 1:
+        os.system('cls')
+        while True:
+            user_name = input("\nEnter your username:- ").strip()
+            if user_name:
+                break
+            else:
+                input("Please enter a valid username\n Press enter to continue")
+                os.system('cls')
+        
+        os.system('cls')
+        game(user_name)
+    else:
+        print("\n\nThank you")
+        time.sleep(2)
+        os.system('exit')
+    pass
+if __name__ == '__main__':
+    start_game()
