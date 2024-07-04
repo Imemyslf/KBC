@@ -31,7 +31,7 @@ This Game contains a Python implementation of the famous quiz game "Kaun Banega 
 
 - Clone this repository to your local machine: 
 ```bash
-git clone https://github.com/Imemyslf/KBC_Game.git
+[git clone https://github.com/Imemyslf/KBC_Game.git](https://github.com/Imemyslf/KBC.git)
 
 ```
 - Navigate to the directory containing the cloned repository:
