@@ -40,11 +40,13 @@ cd KBC
 ```
 -  Run the game using Python
 ```bash
-python KBC.py
+python KBC.py![Relese_1](https://github.com/Imemyslf/KBC/assets/112005565/cd848648-13b9-4a03-a20f-6e9269948f21)
+
 ```
 ## OPTION 2:-
 
 - Visit the releases section of this repository.
+  
     
 - Download the latest release zip file.
     
