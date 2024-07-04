@@ -3,7 +3,7 @@ import re
 import os
 import random
 import Colors
-from Function import intro, mon, question ,get_user_input_with_timeout,user_data,play
+from Function import intro, mon, question, get_user_input_with_timeout, user_data, play
 from lifeline import ran_50_50, poll, swap 
 from KBC_Data import Questions, Money_Prices
 
@@ -14,8 +14,8 @@ mokka_swap = 1
 counter_for_ll = 1
 timeout_duration = 40
 
-#lifeline optons
-def life_line(Question,Options,Correct_Answer,Description,i,value=0):
+# Lifeline options
+def life_line(Question, Options, Correct_Answer, Description, i, value=0):
     global leave, money, mokka_50, mokka_poll, mokka_swap
     leave = 1
     global money
@@ -29,7 +29,7 @@ def life_line(Question,Options,Correct_Answer,Description,i,value=0):
         }
         
         while leave == 1:  # if user hasn't used the lifeline
-            print("\nDo you want to use the life-line or do you want to quit the game?")
+            print("\nDo you want to use a lifeline or quit the game?")
             for lifeline, available in lifelines.items():
                 if available:
                     print(lifeline)
@@ -52,11 +52,11 @@ def life_line(Question,Options,Correct_Answer,Description,i,value=0):
             # Which line user had selected. 
             if Answer[0] != None:
                 Answer.append(1)
-            #user has used  the lifeline
+            # User has used the lifeline
             mokka_50 = 0
             return Answer
         else:
-            input(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}\nPress enter to continue")
+            input(f"\n{Colors.pink}You have already used this lifeline!!{Colors.reset}\nPress enter to continue")
             return False
     
     elif life_line == 2:
@@ -81,7 +81,7 @@ def life_line(Question,Options,Correct_Answer,Description,i,value=0):
             time.sleep(3)
             return poll_answer
         else:
-            input(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}\nPress enter to continue")
+            input(f"\n{Colors.pink}You have already used this lifeline!!{Colors.reset}\nPress enter to continue")
             return False
     
     elif life_line == 3:
@@ -92,7 +92,7 @@ def life_line(Question,Options,Correct_Answer,Description,i,value=0):
             mon(i)
             question(qu, op, i)
             timeout_duration = 15
-            print(f"You have {timeout_duration} seconds to provide input.")
+            print(f"\n\nYou have {timeout_duration} seconds to provide input.")
             Check = get_user_input_with_timeout(timeout_duration)
             answer = Check if Check else None
             if answer != None:
@@ -101,7 +101,7 @@ def life_line(Question,Options,Correct_Answer,Description,i,value=0):
             time.sleep(3)
             return Answer
         else:
-            input(f"\n{Colors.pink}Aap yeh life-line estmal kar juke hai!!{Colors.reset}\nPress enter to continue")
+            input(f"\n{Colors.pink}You have already used this lifeline!!{Colors.reset}\nPress enter to continue")
             return False     
 
     elif life_line == 0:
@@ -117,7 +117,7 @@ def life_line(Question,Options,Correct_Answer,Description,i,value=0):
         return False
 
 
-#Game logic
+# Game logic
 def game(user_name):
     global money, mokka_50, mokka_poll, mokka_swap, timeout_duration, counter_for_ll
     os.system('cls')  # Clears the terminal screen
@@ -126,20 +126,20 @@ def game(user_name):
     random.seed(time.time())
 
     for i in range(len(Questions)):
-        # print("Main loop")
-        #Prompt the user to contiue playing.
+        # Prompt the user to continue playing.
         if i == 5 or i == 10 or i == 15:
-            print("\nKya aap khel jari rakhenge?")
-            print(f"\nDhanrashi apke pass hai {Colors.green}{Money_Prices[i - 1]}{Colors.reset}")
-            print(f"{Colors.yellow}1. Jari rakhenge \n2. Nahi \n{Colors.reset}")
+            print("\nDo you want to continue playing?")
+            print(f"\nYou currently have {Colors.green}{Money_Prices[i - 1]}{Colors.reset}")
+            print(f"{Colors.yellow}1. Continue \n2. No \n{Colors.reset}")
             choice = int(input("Enter your choice: "))
             os.system('cls')
             if choice == 2: # Game Over!!
                 break
             else:
                 timeout_duration = timeout_duration - 10 if i != 15 else  200
-                print(f"\n{Colors.green}You will have {Colors.yellow}{timeout_duration}{Colors.reset} seconds to answer your question.{Colors.reset}")
-
+                input(f"\n{Colors.green}You will have {Colors.yellow}{timeout_duration}{Colors.reset} {Colors.green}seconds to answer your question.{Colors.reset}\n\nPress enter to continue")
+                os.system("cls")
+                
         value = random.randint(0, 4)
         Question, Options, Correct_Answer, Description = Questions[i][value].values()
         # Shuffle the answer options to present them in a random order
@@ -151,7 +151,7 @@ def game(user_name):
         if mokka_50 == 0 and mokka_poll == 0 and mokka_swap == 0:
             print(f"\nYou have {timeout_duration} seconds to provide input.")
         else:
-            print("5) Life-line Or Leave the game!!")
+            print("5) Use Lifeline Or Leave the game!!")
             print(f"\nYou have {timeout_duration} seconds to provide input.")
 
         Check = get_user_input_with_timeout(timeout_duration)
@@ -191,12 +191,12 @@ def game(user_name):
         else:
             if Correct_Answer in Options[Answer - 1]:
                 time.sleep(3)
-                print(f'\n{Colors.green}Aap Jeet Chuke Hai {Money_Prices[i]} Rupay\n{Colors.reset}')
+                print(f'\n{Colors.green}Congratulations! You have won {Money_Prices[i]} Rupees\n{Colors.reset}')
                 input(f"\nDescription:- {Colors.cyan}{Description}{Colors.reset}\nPress any key to continue")
                 money = Money_Prices[i]
                 os.system('cls')
             else:
-                print(f'\n{Colors.red}Galat Jawaab! Aapka khel yahi samapt hota hai!!\n{Colors.reset}')
+                print(f'\nSorry!! {Colors.red}Wrong Answer! Your game ends here!!\n{Colors.reset}')
                 print(f"\nCorrect Answer:- {Correct_Answer}")
                 if 0 <= i < 5:
                     money = 0
@@ -209,14 +209,14 @@ def game(user_name):
                 break
 
     # Display the total earnings and a thank you message
-    print(f'\n Aap apne saath {Colors.blue}{money}{Colors.reset} Rupay Lekar Ja Rahe Hai!!')
+    print(f'\n You are taking {Colors.blue}{money}{Colors.reset} Rupees with you!!')
 
     end_time = time.time()
     total_time = end_time - start_time
 
-    user_data(user_name,money,total_time)
+    user_data(user_name, money, total_time)
 
-    print(f'\n {Colors.pink}DHANYAWAAD {user_name} HUMARA KHEL KHELNE KE LIYE{Colors.reset}')
+    print(f'\n {Colors.pink}Thank You {user_name} for playing our game{Colors.reset}')
     time.sleep(5)
     os.system('exit')
 
@@ -238,7 +238,7 @@ def start_game():
         os.system('cls')
         game(user_name)
     else:
-        print("\n\nThank you")
+        print(f"\n{Colors.pink}Thank you!! See you again later{Colors.reset}")
         time.sleep(2)
         os.system('exit')
     pass

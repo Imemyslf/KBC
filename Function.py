@@ -69,19 +69,32 @@ def play():
 # Introduction and Rules
 def intro():
     print(f"\n{Colors.cyan} Rules:-{Colors.reset}")
-    print(f"\n 1. There are total{Colors.blue} 15 {Colors.reset} question in Kon Banega Crorepati")
-    print(f"\n 2. Price Money(aka Points System) are from {Colors.green}1000 - 7000000{Colors.reset}")
-    print(f"\n 3. You will have 3 Life Line\n {space * 3}a. 50-50\n {space * 3}b. Poll\n {space * 3}c.Swap")
-    print(f"\n 4. You can leave the game whenever you want{Colors.red} *Just Press 0 when the option pop's up to you!! *{Colors.reset}")
-    print(f"\n 5. Money Price(aka Points System) rule")
-    print(f"\n   a. If you have correctly answered Questions till 5 then your base money will be '10000' \n {space * 5}Else your base money will be '0' if you get any one Question wrong between 1 to 5. ")
-    print(f"\n   b. If you have correctly answered Questions till 10 then your base money will be '320000' \n {space * 5}Else your base money will be '10000' if you get any one Question wrong between 6 to 10. ")
-    print(f"\n   c. If you have correctly answered Questions till 14 then your base money will be '5000000' \n {space * 5}Else your base money will be '320000' if you get any one Question wrong between 11 to 14. ")
-    print(f"\n   d. The Final Question will have '7000000' Price Money. It's Totally On The Player If They Want To Attempt The Final Round Or Not \n {space * 5}Note:- If the Answer Given Is Wrong Then The Price Money Will Drop To '320000'")
-    print(f"\n\n  {Colors.red}IF YOU HAVE USED ALL THE LIFELINES AND PRESSED THE 5TH OPTION AGAIN THEN BY DEFAULT YOU HAVE TO QUIT THE GAME BY PRESSING '0`{Colors.reset}")
-    response = input(f"\n{space * 3}Press enter to continue{space * 2}")
+    print(f"\n 1. There are total{Colors.blue} 15 {Colors.reset} questions in Kon Banega Crorepati")
+    print(f"\n 2. Price Money (aka Points System) ranges from {Colors.green}1000 - 7000000{Colors.reset}")
+    print(f"\n 3. You will have 3 Lifelines:-")
+    print(f'\n{Colors.blue}{space * 3}a. 50-50:-{Colors.reset}\n{space*6}"50-50" lifeline removes two incorrect options from the provided list of options \n{space*6}for a given question{Colors.reset}')
+    print(f'\n{Colors.green}{space * 3}b. Poll:-{Colors.reset}\n{space*6}"Poll" lifeline presents the question with randomized percentages representing \n{space*6}audience votes for each option{Colors.reset}')
+    print(f'\n{Colors.pink}{space * 3}c. Swap:-{Colors.reset}\n{space*6}"Swap" lifeline in a quiz game by replacing the current question with a randomly \n{space*6}selected question from the remaining set of questions.')
+    print(f"\n 4. You can leave the game whenever you want{Colors.red} *Just Press 0 when the option pops up to you!! *{Colors.reset}")
+    print(f"\n 5. Money Price (aka Points System) rules:")
+    print(f"\n   {Colors.blue}a. If you have correctly answered Questions till 5 then your base money will be '10000'\n{space * 6}Else your base money will be '0' if you get any one Question wrong between 1 to 5.{Colors.reset}")
+    print(f"\n   {Colors.pink}b. If you have correctly answered Questions till 10 then your base money will be '320000'\n{space * 6}Else your base money will be '10000' if you get any one Question wrong between 6 to 10.{Colors.reset}")
+    print(f"\n   {Colors.green}c. If you have correctly answered Questions till 14 then your base money will be '5000000'\n{space * 6}Else your base money will be '320000' if you get any one Question wrong between 11 to 14.{Colors.reset}")
+    print(f"\n   {Colors.yellow}d. The Final Question will have '7000000' Price Money. It's Totally On The Player If They \n{space*6}Want To Attempt The Final Round Or Not{Colors.reset}")
+    print(f"\n{space * 5}Note:- If the Answer Given Is Wrong Then The Price Money Will Drop To '320000'")
+    print(f"\n\n  {Colors.red}IF YOU HAVE USED ALL THE LIFELINES AND PRESSED THE 5TH OPTION AGAIN THEN BY DEFAULT YOU \n{space*3}HAVE TO QUIT THE GAME BY PRESSING '0'{Colors.reset}")
+
+    input(f"\n{space * 3}Press enter to continue{space * 2}")
     
     os.system('cls')
+
+#Displaying the levels cleared and points earned by the user
+def mon(i):
+    print(" Current Status of Player:- ",end= " ")
+    if (i == 0):
+        print(f"\n Levels Cleared = {i} \t Prize Money = {Colors.green}0{Colors.reset}\n")
+    else:
+        print(f"\n Levels Cleared = {i} \t Prize Money = {Colors.green}{Money_Prices[i -1]}{Colors.reset}\n")
 
 # Questions function
 def question(Question,Options,i):
@@ -89,14 +102,6 @@ def question(Question,Options,i):
     print(Question)
     for j in range(len(Options)):
         print(f'{j+1}) {Options[j]}')
-
-#Money/Point Display Function
-def mon(i):
-    print(" Current Status of Player:- ",end= " ")
-    if (i == 0):
-        print(f"\n Levels Cleared = {i} \t Prize Money = {Colors.green}0{Colors.reset}\n")
-    else:
-        print(f"\n Levels Cleared = {i} \t Prize Money = {Colors.green}{Money_Prices[i -1]}{Colors.reset}\n")
 
 #User info function 
 def user_data(user_name,money,to_ti):
@@ -129,6 +134,7 @@ def user_data(user_name,money,to_ti):
     
     add_player_info('Player_info.json',user_name,money,to_ti/60)
 
+#Timer function
 def get_user_input_with_timeout(timeout):
     stop_event = threading.Event()
     user_input = None
@@ -168,7 +174,7 @@ def get_user_input_with_timeout(timeout):
     input_thread_obj.join(timeout)
 
     if input_thread_obj.is_alive():
-        print("\nTimeout! You didn't provide input within the specified time.\nPress enter to continue")
+        print(f"\n\n{Colors.red}Timeout! You didn't provide input within the specified time{Colors.reset}.\n\nPress enter to continue")
         input_thread_obj.join()  # Ensure input_thread stops
 
     stop_event.set()  # Ensure the countdown thread stops
@@ -176,7 +182,7 @@ def get_user_input_with_timeout(timeout):
     return user_input
 
 if __name__ == "__main__":
-    e = play()
-    print("\n\ne = ",e)
+    intro()
+    # play()
     pass
     

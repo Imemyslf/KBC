@@ -30,7 +30,7 @@ def ran_50_50(Question,Options,Correct_Answer,i):
     question(Question,Options,i)
     
     timeout_duration = 20
-    print(f"You have {timeout_duration} seconds to provide input.")
+    print(f"\nYou have {timeout_duration} seconds to provide input.")
     Check = get_user_input_with_timeout(timeout_duration)
     Answer = Check if Check else None
     answer = [Check,Answer,Options]
