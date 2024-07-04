@@ -36,7 +36,7 @@ https://github.com/Imemyslf/KBC.git
 ```
 - Navigate to the directory containing the cloned repository:
 ```bash
-cd KBC
+cd KBC\KBC_Game
 ```
 -  Run the game using Python
 ```bash
