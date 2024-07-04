@@ -54,8 +54,6 @@ python KBC.py
 
 - Enjoy your Game.
 
-The program will display the result in the corresponding text box.
-
 ## Requirements:
 
 Check the Requirements.txt file
