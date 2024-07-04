@@ -59,8 +59,7 @@ python KBC.py
 ![Relese_4](https://github.com/Imemyslf/KBC/assets/112005565/f14d39c3-2918-47ae-87d5-de107c908986)
 
 
-- Enjoy your Game.
-ets/112005565/d3e72f8a-dd72-4424-8f69-67a0632e738c)
+- Enjoy your Game. 🙌😄
 
 ## Requirements:
 
